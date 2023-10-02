@@ -105,8 +105,8 @@ function App() {
           <Route path="/about" element={<About/>} />
         </Routes> */}
 
-        <SearchBar onSearch={handleSearch}/>
         <CurrentLocation searchText={searchText}/>
+        <SearchBar onSearch={handleSearch}/>
         <HourlyView data={selectedData.hourly}/>
         <DailyView data={selectedData.daily}/>
     </div>
