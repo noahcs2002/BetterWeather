@@ -1,10 +1,12 @@
-import './App.css';
+import './App.scss';
 import DailyView from '../DailyView/DailyView';
 import Navbar from '../Navbar/Navbar';
 import HourlyView from '../HourlyView/HourlyView';
 import SearchBar from '../Search/SearchBar';
 import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
+import {Routes, Route } from 'react-router-dom';
+import About from '../QuickLinks/About/About';
 
 function App() {
 
@@ -96,11 +98,17 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar/>
-      <SearchBar onSearch={handleSearch}/>
-      <CurrentLocation searchText={searchText}/>
-      <HourlyView data={selectedData.hourly}/>
-      <DailyView data={selectedData.daily}/>
+        <Navbar/>
+
+        {/* <Routes>
+          <Route path="/" element={<App/>}/>
+          <Route path="/about" element={<About/>} />
+        </Routes> */}
+
+        <SearchBar onSearch={handleSearch}/>
+        <CurrentLocation searchText={searchText}/>
+        <HourlyView data={selectedData.hourly}/>
+        <DailyView data={selectedData.daily}/>
     </div>
   );
 }

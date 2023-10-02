@@ -35,4 +35,27 @@
 .logo-title {
   justify-content: center;
 }
+
+.link {
+  color: #fff;
+  font-style: oblique;
+  font-size: large;
+  font-weight: bold;
+}
+
+.link:link {
+  text-decoration: none;
+}
+
+.link:visited {
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:active {
+    text-decoration: none;
+}
   
