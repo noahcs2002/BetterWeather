@@ -1,6 +1,8 @@
+@import '../_Other/standard.scss'; 
+
 .navbar {
-    background-color: #3498db;
-    color: white;
+    background-color: var(--main-color);
+    color: var(--white);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,7 +39,7 @@
 }
 
 .link {
-  color: #fff;
+  color: var(--white);
   font-style: oblique;
   font-size: large;
   font-weight: bold;
@@ -58,4 +60,3 @@
 .link:active {
     text-decoration: none;
 }
-  
