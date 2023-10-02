@@ -31,10 +31,8 @@ jobs:
     # - name: Run tests
     #   run: npm test -- --coverage
 
-    # - name: Build React app
-    #   run: cd app && npm run build
-
-
+    - name: Build React app
+      run: cd app && npm run build
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
@@ -42,16 +40,16 @@ jobs:
         name: build-artifact
         path: build
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
 
-    - name: Download build artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: build-artifact
-        path: build
+  #   - name: Download build artifacts
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: build-artifact
+  #       path: build
