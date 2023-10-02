@@ -10,8 +10,6 @@ on:
 
 jobs:
   build:
-    env: 
-      process.env.CI: false
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +31,8 @@ jobs:
     #   run: npm test -- --coverage
 
     - name: Build React app
+      env:
+        CI: ""
       run: cd app && npm run build
 
     - name: Archive artifacts
