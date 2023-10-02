@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import App from './App/App';
 import reportWebVitals from './_Other/reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import About from './QuickLinks/About/About';
+import About from './QuickLinks/About';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

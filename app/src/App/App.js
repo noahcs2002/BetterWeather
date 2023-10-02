@@ -6,7 +6,7 @@ import SearchBar from '../Search/SearchBar';
 import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
 import {Routes, Route } from 'react-router-dom';
-import About from '../QuickLinks/About/About';
+import About from '../QuickLinks/About';
 
 function App() {
 
