@@ -65,17 +65,17 @@ function App() {
 
   useEffect(() => {
     const searchText = localStorage.getItem('searchText');
-
+    const data = JSON.parse(localStorage.getItem('data'));
     if (searchText) {
       setSearchText(searchText);
-    }
-
-    const data = localStorage.getItem('data');
-
+    };
     if (data) {
       setSelectedData(data);
     }
-  })
+    else {
+      setSelectedData(defaultData);
+    }
+  }, [])
 
   const handleSearch = (text) => {
     localStorage.setItem('searchText', text);
@@ -83,20 +83,16 @@ function App() {
 
     let newData = defaultData;
 
-    if (text.toLowerCase() == 'murray') {
+    if (text.toLowerCase() === 'murray') {
       newData = dataForMurray;
     }
-    else if (text.toLowerCase() == 'paducah') {
+    else if (text.toLowerCase() === 'paducah') {
       newData = dataForPaducah;
     }
 
     setSelectedData(newData);
-    localStorage.setItem('data', newData);
+    localStorage.setItem('data', JSON.stringify(newData));
   };
-
-  useEffect(() => {
-    console.log(selectedData)
-  }, [selectedData]);
 
   return (
     <div className="App">

@@ -9,12 +9,6 @@ export default function DailyView({data}) {
     const xAxis=data.xAxis;
     const yAxis=data.yAxis;
 
-    console.log(xData);
-    console.log(yData);
-    console.log(xAxis);
-    console.log(yAxis);
-    console.log(title);
-
     return (
         <div className="daily">
             <h2> Daily View: </h2>
