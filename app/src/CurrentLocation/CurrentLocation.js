@@ -1,5 +1,5 @@
 import React from "react";
-import './CurrentLocation.css';
+import './CurrentLocation.scss';
 
 export default function CurrentLocation({ searchText }) {
     return (
