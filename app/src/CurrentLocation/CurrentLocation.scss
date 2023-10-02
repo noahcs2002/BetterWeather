@@ -1,7 +1,9 @@
+@import '../_Other/standard.scss';
+
 .container {
     display: flex;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: var(--white);
     padding: 0 10px;
     border-radius: 5px;
     margin: 1%;

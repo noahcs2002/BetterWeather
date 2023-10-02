@@ -1,7 +1,9 @@
+@import '../_Other/standard.scss';
+
 .visualisation {
     min-width: 75%;
     min-height: 75%;
-    border: 4px #ccc solid;
+    border: 4px var(--border) solid;
     border-radius: 25px;
     overflow: hidden;
 }
