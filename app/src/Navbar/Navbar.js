@@ -1,8 +1,11 @@
 import React from 'react';
 import './Navbar.scss';
 import logo from '../Resources/logo.png';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+
+  const location = useLocation();
   return (
     <nav className="navbar">
       <div className="logo">
@@ -19,9 +22,8 @@ const Navbar = () => {
         
       </div>
       <ul className="nav-links">
-        <li>Home</li>
-        <li>Forecast</li>
-        <li>About</li>
+        {location.pathname !== '/' && <li><Link to="/" className='link'> Home </Link></li>}
+        {location.pathname !== '/about' && <li><Link to="/about" className='link'> About </Link></li>}
       </ul>
     </nav>
   );
