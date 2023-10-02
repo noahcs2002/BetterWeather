@@ -31,6 +31,9 @@ jobs:
     - name: Build React app
       run: cd app && npm run build
 
+    - name: Install Plotly
+      run : cd app && npm i plotly.js
+
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
       with:
