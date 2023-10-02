@@ -1,0 +1,28 @@
+.navbar {
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+  
+    li {
+      margin-right: 1rem;
+      cursor: pointer;
+  
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  
