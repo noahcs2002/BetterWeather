@@ -5,24 +5,34 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-  }
+}
   
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-  
-    li {
-      margin-right: 1rem;
-      cursor: pointer;
-  
-      &:last-child {
-        margin-right: 0;
-      }
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  margin-right: 25%;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+
+  li {
+    margin-right: 1rem;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
     }
   }
+}
+
+.logo-image {
+  padding-right: 25px;
+}
+
+.logo-title {
+  justify-content: center;
+}
   
