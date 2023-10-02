@@ -1,9 +1,9 @@
 import './App.css';
-import DailyView from './DailyView/DailyView';
-import Navbar from './Navbar/Navbar';
-import HourlyView from './HourlyView/HourlyView';
-import SearchBar from './Search/SearchBar';
-import CurrentLocation from './CurrentLocation/CurrentLocation';
+import DailyView from '../DailyView/DailyView';
+import Navbar from '../Navbar/Navbar';
+import HourlyView from '../HourlyView/HourlyView';
+import SearchBar from '../Search/SearchBar';
+import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
 
 function App() {
