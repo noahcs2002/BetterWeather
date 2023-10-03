@@ -5,22 +5,22 @@ import HourlyView from '../HourlyView/HourlyView';
 import SearchBar from '../Search/SearchBar';
 import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
-import {Routes, Route } from 'react-router-dom';
-import About from '../QuickLinks/About';
 
 function App() {
 
   const dataForMurray = {
     daily : {
       xData : ['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yData : [82, 80, 82, 83, 85, 86, 89],
+      yHighs : [82, 80, 82, 83, 85, 86, 89],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
       title : 'Hourly view for Murray, Kentucky',
       xAxis : 'Time',
       yAxis : 'Temperature' 
     },
     hourly: {
       xData: ['10/1','10/2','10/3','10/4','10/5','10/6','10/7'],
-      yData: [82, 81, 79, 73, 72, 68, 64],
+      yHighs: [82, 81, 79, 73, 72, 68, 64],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
       title: "Weekly Outlook for Murray, Kentucky",
       xAxis: 'Day' ,
       yAxis: "Temperature",
@@ -30,14 +30,16 @@ function App() {
   const dataForPaducah = {
     daily : {
       xData : ['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yData : [77, 78, 82, 81, 75, 69, 62],
+      yHighs : [77, 78, 82, 81, 75, 69, 62],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
       title : 'Hourly view for Paducah, Kentucky',
       xAxis : 'Time',
       yAxis : 'Temperature' 
     },
     hourly: {
       xData: ['10/1','10/2','10/3','10/4','10/5','10/6','10/7'],
-      yData: [82, 81, 71, 73, 75, 78, 68],
+      yHighs: [82, 81, 71, 73, 75, 78, 68],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
       title: "Weekly Outlook for Paducah, Kentucky",
       xAxis: 'Day' ,
       yAxis: "Temperature",
@@ -47,7 +49,8 @@ function App() {
   const defaultData = {
     daily : {
       xData:[1,2,3,4,5,6,7],
-      yData:[1,2,3,4,5,6,7],
+      yHighs:[1,2,3,4,5,6,7],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
       title:"Daily Trends (Default dataset)",
       xAxis:'Hour' ,
       yAxis:"Temperature",
@@ -55,7 +58,8 @@ function App() {
 
     hourly : {
       xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yData:[1,2,3,4,5,6,7],
+      yHighs:[1,2,3,4,5,6,7],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
       title:"Hourly Trends (Default dataset)",
       xAxis:'Hour' ,
       yAxis:"Temperature",
