@@ -2,14 +2,32 @@ import React from "react";
 import './Visualisation.scss';
 import Plot from 'react-plotly.js'
 
-export default function Visualisation({xData, yData, xAxis, yAxis, title}) {
+export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title}) {
 
-    const trace = {
+    const highValues = {
         x: xData,
-        y: yData,
+        y: yHighs,
         mode:'lines',
-        type:'scatter',
-        marker: {color:'green', size:8},
+        type:'bar',
+        marker: {color:'042048', size:8},
+        name: 'High',
+        text: yHighs.map(v => `${v}`),
+        textposition : 'inside', 
+        hoverinfo: 'name+y'
+    };
+
+    const lowValues = {
+        x: xData,
+        y: yLows,
+        mode:'lines',
+        type:'bar',
+        marker: {color:'3498db', size:8},
+        name: 'Low',
+        text: yLows.map(v => `${v}`),
+        textposition : 'inside', 
+        hoverinfo: 'name+y',
+        // fill: 'tonexty',
+        // fillcolor: 'rgba(53, 246, 120, .73)'
     };
 
     const layout = {
@@ -20,7 +38,7 @@ export default function Visualisation({xData, yData, xAxis, yAxis, title}) {
 
     return (
         <div className="visualisation">
-            <Plot data={[trace]} layout={layout} style={{width: '100%', height:'400px'}}/>
+            <Plot data={[highValues, lowValues]} layout={layout} style={{width: '100%', height:'400px'}}/>
         </div>
     )
 }
