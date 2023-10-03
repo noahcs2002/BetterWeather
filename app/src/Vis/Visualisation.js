@@ -26,8 +26,6 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
         text: yLows.map(v => `${v}`),
         textposition : 'inside', 
         hoverinfo: 'name+y',
-        // fill: 'tonexty',
-        // fillcolor: 'rgba(53, 246, 120, .73)'
     };
 
     const layout = {
