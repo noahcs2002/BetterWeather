@@ -29,6 +29,7 @@ function App() {
     }
   };
 
+  // States
   const [searchText, setSearchText] = useState('');
   const [selectedData, setSelectedData] = useState(defaultData);
   const [userLocation, updateUserLocation] = useState(null);
@@ -51,43 +52,73 @@ function App() {
       const pollData = await pollResponse.json();
       setData(pollData);
       const region = `${pollData.properties.relativeLocation.properties.city}, ${pollData.properties.relativeLocation.properties.state}`
+      const weeklyForecastResponse = await fetch(pollData.properties.forecast);
+      const weeklyForcastData = await weeklyForecastResponse.json();
+      const weeklyPeriods = weeklyForcastData.properties.periods
 
-      const forecastResponse = await fetch(pollData.properties.forecast);
-      const forecastData = await forecastResponse.json();
-      const periods = forecastData.properties.periods
+      var hourlyForecastResponse = await fetch(pollData.properties.forecastHourly);
+      var hourlyForecastData = await hourlyForecastResponse.json();
+      var hourlyPeriods = hourlyForecastData.properties.periods;
 
-      const xData = [];
-      const yHighs = [];
-      const yLows = [];
+      const xDataWeekView = [];
+      const yHighsWeekView = [];
+      const yLowsWeekView = [];
+      
+      const xDataHourView = [];
+      const yHighsHourView = [];
 
       // Periods constains 14 JSON objects, starting from the present day to 7 days away, 1 per day and 1 per night
-      periods.forEach(period => {
+      weeklyPeriods.forEach(period => {
         const name = period.name;
         const temperature = period.temperature;
 
         if (period.isDaytime) {
-          xData.push(name);
-          yHighs.push(temperature);
+          xDataWeekView.push(name);
+          yHighsWeekView.push(temperature);
         }
         else {
-          yLows.push(temperature);
+          yLowsWeekView.push(temperature);
         }
       })
 
+      hourlyPeriods.forEach((p, index) => {
+        if (index < 12) {
+          
+          var dateObject = new Date(p.startTime);
+
+          var hours = dateObject.getHours();
+          var minutes = dateObject.getMinutes();
+          var seconds = dateObject.getSeconds();
+
+          // Format hours, minutes, and seconds as two-digit strings
+          hours = hours < 10 ? "0" + hours : hours;
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+          // Construct the time string
+          var timeString = hours + ":" + minutes + ":" + seconds;
+          xDataHourView.push(timeString);
+          yHighsHourView.push(p.temperature);
+        }
+      });
+      console.log(xDataHourView);
+      console.log(yHighsHourView);
+
+      // console.log("Hourly view xData: ", xDataHourView);
       const dataToModel = {
         daily: {
-          xData: xData,
-          yHighs : yHighs,
-          yLows : yLows,
+          xData: xDataWeekView,
+          yHighs : yHighsWeekView,
+          yLows : yLowsWeekView,
           title: `Weekly outlook for ${region}`,
-          xAxis:'Hour' ,
+          xAxis:'Day' ,
           yAxis:"Temperature",
         },
         hourly : {
-          xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-          yHighs:[1,2,3,4,5,6,7],
-          yLows: [60, 60, 60, 60, 60, 60, 60],
-          title:"Hourly Trends (Default dataset)",
+          xData:xDataHourView,
+          yHighs:yHighsHourView,
+          yLows: yHighsHourView,
+          title:`Hourly Trends for ${region}`,
           xAxis:'Hour' ,
           yAxis:"Temperature",
         }

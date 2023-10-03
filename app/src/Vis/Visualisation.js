@@ -16,17 +16,23 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
         hoverinfo: 'name+y'
     };
 
-    const lowValues = {
-        x: xData,
-        y: yLows,
-        mode:'lines',
-        type:'bar',
-        marker: {color:'3498db', size:8},
-        name: 'Low',
-        text: yLows.map(v => `${v}`),
-        textposition : 'inside', 
-        hoverinfo: 'name+y',
-    };
+    var lowValues = {};
+
+    if (yHighs) {
+        lowValues = {
+            x: xData,
+            y: yLows,
+            mode:'lines',
+            type:'bar',
+            marker: {color:'3498db', size:8},
+            name: 'Low',
+            text: yLows.map(v => `${v}`),
+            textposition : 'inside', 
+            hoverinfo: 'name+y',
+        };
+    }
+    
+    const data = yHighs ? ([highValues, lowValues]) : ([highValues]);
 
     const layout = {
         title: title,
@@ -36,7 +42,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
 
     return (
         <div className="visualisation">
-            <Plot data={[highValues, lowValues]} layout={layout} style={{width: '100%', height:'400px'}} config= {{displayModeBar: false, staticPlot:true}}/>
+            <Plot data={data} layout={layout} style={{width: '100%', height:'400px'}} config= {{displayModeBar: false, staticPlot:true}}/>
         </div>
     )
 }
