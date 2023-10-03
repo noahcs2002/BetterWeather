@@ -36,7 +36,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
 
     return (
         <div className="visualisation">
-            <Plot data={[highValues, lowValues]} layout={layout} style={{width: '100%', height:'400px'}} config= {{displayModeBar: false}}/>
+            <Plot data={[highValues, lowValues]} layout={layout} style={{width: '100%', height:'400px'}} config= {{displayModeBar: false, staticPlot:true}}/>
         </div>
     )
 }

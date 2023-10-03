@@ -12,7 +12,7 @@ export default function HourlyView({data}) {
 
     return (
         <div className="hourly">
-            <h2> Hourly View: </h2>
+            <h2> Hourly Outlook: </h2>
             <Visualisation xData={xData} yHighs={yHighs} yLows={yLows} title={title} xAxis={xAxis} yAxis={yAxis}/>
         </div>
     )

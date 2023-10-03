@@ -12,7 +12,7 @@ export default function DailyView({data}) {
 
     return (
         <div className="daily">
-            <h2> Daily View: </h2>
+            <h2> Weekly Outlook: </h2>
             <Visualisation xData={xData} yHighs={yHighs} yLows={yLows} title={title} xAxis={xAxis} yAxis={yAxis}/>
         </div>
     )
