@@ -3,12 +3,12 @@ import './DailyView.scss';
 import Visualisation from "../Vis/Visualisation";
 
 export default function DailyView({data}) {
-    const xData=data.xData
-    const yHighs=data.yHighs;
-    const yLows=data.yLows;
-    const title=data.title;
-    const xAxis=data.xAxis;
-    const yAxis=data.yAxis;
+    const xData=data.daily.xData
+    const yHighs=data.daily.yHighs;
+    const yLows=data.daily.yLows;
+    const title=data.daily.title;
+    const xAxis=data.daily.xAxis;
+    const yAxis=data.daily.yAxis;
 
     return (
         <div className="daily">

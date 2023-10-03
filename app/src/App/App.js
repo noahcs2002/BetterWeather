@@ -5,101 +5,140 @@ import HourlyView from '../HourlyView/HourlyView';
 import SearchBar from '../Search/SearchBar';
 import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
+import Loading from '../Loading/Loading';
 
 function App() {
 
-  const defaultData = {
-    daily : {
-      xData:[1,2,3,4,5,6,7],
-      yHighs:[1,2,3,4,5,6,7],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title:"Daily Trends (Default dataset)",
-      xAxis:'Hour' ,
-      yAxis:"Temperature",
-    },
+  // const randomChoiceLocations = [
+  //   {name: 'New York city, New York', location: {lat: }},
+  //   {},
+  //   {},
+  //   {},
+  //   {},
+  //   {},
+  //   {},
+  //   {},
+  //   {},
+  //   {},
+  // ]
 
-    hourly : {
-      xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yHighs:[1,2,3,4,5,6,7],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title:"Hourly Trends (Default dataset)",
-      xAxis:'Hour' ,
-      yAxis:"Temperature",
-    }
-  };
 
   const [searchText, setSearchText] = useState('');
   const [selectedData, setSelectedData] = useState(defaultData);
   const [userLocation, updateUserLocation] = useState(null);
   const [data, setData] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(true);
+  const [loadingWeather, setLoadingWeather] = useState(true);
+
+  const pollWeeklyTrends = async (location) => {
+    try {
+      var PORTAL = 'https://api.weather.gov/points';
+      
+      const userLocation = JSON.parse(localStorage.getItem('location'));
+      console.log(userLocation);
+
+      var url = `${PORTAL}/${location.lat},${location.long}`;
+
+      const pollResponse = await fetch(url);
+      const pollData = await pollResponse.json();
+      setData(pollData);
+      const region = `${pollData.properties.relativeLocation.properties.city}, ${pollData.properties.relativeLocation.properties.state}`
+
+      const forecastResponse = await fetch(pollData.properties.forecast);
+      const forecastData = await forecastResponse.json();
+      const periods = forecastData.properties.periods
+
+      const xData = [];
+      const yHighs = [];
+      const yLows = [];
+
+      // Periods constains 14 JSON objects, starting from the present day to 7 days away, 1 per day and 1 per night
+      periods.forEach(period => {
+        const name = period.name;
+        const temperature = period.temperature;
+
+        if (period.isDaytime) {
+          xData.push(name);
+          yHighs.push(temperature);
+        }
+        else {
+          yLows.push(temperature);
+        }
+      })
+
+      const dataToModel = {
+        daily: {
+          xData: xData,
+          yHighs : yHighs,
+          yLows : yLows,
+          title: `Weekly outlook for ${region}`,
+          xAxis:'Hour' ,
+          yAxis:"Temperature",
+        },
+        hourly : {
+          xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
+          yHighs:[1,2,3,4,5,6,7],
+          yLows: [60, 60, 60, 60, 60, 60, 60],
+          title:"Hourly Trends (Default dataset)",
+          xAxis:'Hour' ,
+          yAxis:"Temperature",
+        }
+      }
+
+      setData(dataToModel);
+      localStorage.setItem('data', JSON.stringify(dataToModel));
+
+    }
+    catch (error) {
+      console.log("Error with polling: ", error);
+    }
+    setLoadingWeather(false);
+  }
 
   useEffect(() => {
+    const getLocationPermission = async () => {
+      if ("geolocation" in navigator) {
+        try {
+          const location = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+              pos => (
+                resolve({
+                lat: pos.coords.latitude,
+                long: pos.coords.longitude
+              })),
+              error => reject(error)
+            );
+          });
 
-    const pollWeeklyTrends = async (lat, long) => {
-      try {
-        const pollResponse = await fetch('https://api.weather.gov/points/36.6163,-88.3209');
-        const pollData = await pollResponse.json();
-        setData(pollData);
-        console.log("JSON Properties Object: ", pollData.properties);
-        console.log("Forecast URL: ", pollData.properties.forecast);
-        const region = `${pollData.properties.relativeLocation.properties.city}, ${pollData.properties.relativeLocation.properties.state}`
-
-        const forecastResponse = await fetch(pollData.properties.forecast);
-        const forecastData = await forecastResponse.json();
-        const periods = forecastData.properties.periods
-        console.log("Forecast data.properties.periods: ", periods);
-
-        const xData = [];
-        const yHighs = [];
-        const yLows = [];
-
-        // Periods constains 14 JSON objects, starting from the present day to 7 days away, 1 per day and 1 per night
-        periods.forEach(period => {
-          const name = period.name;
-          const temperature = period.temperature;
-
-          if (period.isDaytime) {
-            xData.push(name);
-            yHighs.push(temperature);
-          }
-          else {
-            yLows.push(temperature);
-          }
-        })
-
-        console.log('xData: ', xData);
-        console.log('yHighs: ', yHighs);
-        console.log('yLows: ', yLows);
-
-        const dataToModel = {
-          daily: {
-            xData: xData,
-            yHighs : yHighs,
-            yLows : yLows,
-            title: `Weekly outlook for ${region}`,
-            xAxis:'Hour' ,
-            yAxis:"Temperature",
-          },
-          hourly : {
-            xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-            yHighs:[1,2,3,4,5,6,7],
-            yLows: [60, 60, 60, 60, 60, 60, 60],
-            title:"Hourly Trends (Default dataset)",
-            xAxis:'Hour' ,
-            yAxis:"Temperature",
-          }
+          localStorage.setItem('location', JSON.stringify(location));
+          updateUserLocation(location);
+          console.log("User location is being saved as ", location);
+          pollWeeklyTrends(location);
         }
-
-        setData(dataToModel);
-        localStorage.setItem('data', JSON.stringify(dataToModel));
-
+        catch (error) {
+          const defaultLocation = {lat : 40.7128, long : -74.0060};
+          localStorage.setItem('location', JSON.stringify(defaultLocation));
+          updateUserLocation(defaultLocation);
+          console.log("Location denied. Using the default location.");
+          console.log("User location is now stored as ", defaultLocation);
+          pollWeeklyTrends(defaultLocation);
+        }
+        setLoadingLocation(false);
       }
-      catch (error) {
-        console.log(error);
+      else {
+        console.log("no navigation allowed");
       }
+      setLoadingLocation(false);
     }
 
-    const jsonData = pollWeeklyTrends(1,2);
+    const startup = async () => {
+      await getLocationPermission();
+      await new Promise(() => {
+        pollWeeklyTrends()
+      });
+    }
+    startup();
+
     const searchText = localStorage.getItem('searchText');
     const data = JSON.parse(localStorage.getItem('data'));
 
@@ -114,32 +153,41 @@ function App() {
       setSelectedData(defaultData);
     }
 
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-
-          const location = {
-            lat: position.coords.latitude,
-            long: position.coords.longitude
-          };
-
-          updateUserLocation(location);
-          console.log(location);
-        },
-        function error(error) {
-          console.log("Error getting location:", error);
-        }
-      )
-    }
   }, [])
 
-  const handleSearch = (text) => {
+  useEffect(() => {
+    if(userLocation && !loadingLocation && !loadingWeather) {
+      pollWeeklyTrends(userLocation);
+    }
+  }, [userLocation, loadingLocation, loadingWeather]);
+
+  const handleSearch = async (text) => {
     localStorage.setItem('searchText', text);
     setSearchText(text);
+    
+
+    try {
+      const [city, state] = text.split(' ');
+      console.log('City: ', city);
+      console.log('State: ', state);
+      const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
+      var url = PORTAL;
+      const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
+      const mock = `${PORTAL}murray&limit=5&appid=${apiKey}`;
+
+      const queryResponse = await fetch(mock);
+      const responseJSON = await queryResponse.json();
+
+      // const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
+      console.log("Geocoding response: ", responseJSON);
+
+    }
+    catch (err) {
+      console.log("error using Geocoding API:", err)
+    }
+
 
     let newData = defaultData;
-    // console.log(userLocation);
-
     setSelectedData(newData);
     localStorage.setItem('data', JSON.stringify(newData));
   };
@@ -147,10 +195,17 @@ function App() {
   return (
     <div className="App">
         <Navbar/>
-        <CurrentLocation searchText={searchText}/>
-        <SearchBar onSearch={handleSearch}/>
-        <HourlyView data={selectedData.hourly}/>
-        <DailyView data={selectedData.daily}/>
+        {loadingLocation || loadingWeather ? (
+          <Loading/>
+        ) : (
+        <>
+          <CurrentLocation searchText={searchText}/>
+          <SearchBar onSearch={handleSearch}/>
+          <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
+          <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+        </>
+        )}
+        
     </div>
   );
 }
