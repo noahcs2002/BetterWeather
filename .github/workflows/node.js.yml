@@ -26,6 +26,9 @@ jobs:
 
     - name: Install Plotly
       run : cd app && npm i plotly.js
+
+    - name: Install react-geocode
+      run : cd app && npm i --s react-geocode
       
     # - name: Run tests
     #   run: npm test -- --coverage
