@@ -202,6 +202,7 @@ function App() {
   }, [userLocation, loadingLocation, loadingWeather]);
 
   const handleSearch = async (text) => {
+    setLoadingLocation(true);
     localStorage.setItem('searchText', text);
     setSearchText(text);
     try {
@@ -229,6 +230,7 @@ function App() {
     setSelectedData(newData);
     localStorage.setItem('data', JSON.stringify(newData));
     setSearchMade(true);
+    setLoadingLocation(false);
   };
 
   return (
