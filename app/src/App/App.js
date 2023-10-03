@@ -8,44 +8,6 @@ import React, {useEffect, useState} from 'react';
 
 function App() {
 
-  const dataForMurray = {
-    daily : {
-      xData : ['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yHighs : [82, 80, 82, 83, 85, 86, 89],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title : 'Hourly view for Murray, Kentucky',
-      xAxis : 'Time',
-      yAxis : 'Temperature' 
-    },
-    hourly: {
-      xData: ['10/1','10/2','10/3','10/4','10/5','10/6','10/7'],
-      yHighs: [82, 81, 79, 73, 72, 68, 64],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title: "Weekly Outlook for Murray, Kentucky",
-      xAxis: 'Day' ,
-      yAxis: "Temperature",
-    }
-  };
-  
-  const dataForPaducah = {
-    daily : {
-      xData : ['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yHighs : [77, 78, 82, 81, 75, 69, 62],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title : 'Hourly view for Paducah, Kentucky',
-      xAxis : 'Time',
-      yAxis : 'Temperature' 
-    },
-    hourly: {
-      xData: ['10/1','10/2','10/3','10/4','10/5','10/6','10/7'],
-      yHighs: [82, 81, 71, 73, 75, 78, 68],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title: "Weekly Outlook for Paducah, Kentucky",
-      xAxis: 'Day' ,
-      yAxis: "Temperature",
-    }
-  };
-
   const defaultData = {
     daily : {
       xData:[1,2,3,4,5,6,7],
@@ -68,18 +30,106 @@ function App() {
 
   const [searchText, setSearchText] = useState('');
   const [selectedData, setSelectedData] = useState(defaultData);
+  const [userLocation, updateUserLocation] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
+
+    const pollWeeklyTrends = async (lat, long) => {
+      try {
+        const pollResponse = await fetch('https://api.weather.gov/points/36.6163,-88.3209');
+        const pollData = await pollResponse.json();
+        setData(pollData);
+        console.log("JSON Properties Object: ", pollData.properties);
+        console.log("Forecast URL: ", pollData.properties.forecast);
+        const region = `${pollData.properties.relativeLocation.properties.city}, ${pollData.properties.relativeLocation.properties.state}`
+
+        const forecastResponse = await fetch(pollData.properties.forecast);
+        const forecastData = await forecastResponse.json();
+        const periods = forecastData.properties.periods
+        console.log("Forecast data.properties.periods: ", periods);
+
+        const xData = [];
+        const yHighs = [];
+        const yLows = [];
+
+        // Periods constains 14 JSON objects, starting from the present day to 7 days away, 1 per day and 1 per night
+        periods.forEach(period => {
+          const name = period.name;
+          const temperature = period.temperature;
+
+          if (period.isDaytime) {
+            xData.push(name);
+            yHighs.push(temperature);
+          }
+          else {
+            yLows.push(temperature);
+          }
+        })
+
+        console.log('xData: ', xData);
+        console.log('yHighs: ', yHighs);
+        console.log('yLows: ', yLows);
+
+        const dataToModel = {
+          daily: {
+            xData: xData,
+            yHighs : yHighs,
+            yLows : yLows,
+            title: `Weekly outlook for ${region}`,
+            xAxis:'Hour' ,
+            yAxis:"Temperature",
+          },
+          hourly : {
+            xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
+            yHighs:[1,2,3,4,5,6,7],
+            yLows: [60, 60, 60, 60, 60, 60, 60],
+            title:"Hourly Trends (Default dataset)",
+            xAxis:'Hour' ,
+            yAxis:"Temperature",
+          }
+        }
+
+        setData(dataToModel);
+        localStorage.setItem('data', JSON.stringify(dataToModel));
+
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+
+    const jsonData = pollWeeklyTrends(1,2);
     const searchText = localStorage.getItem('searchText');
     const data = JSON.parse(localStorage.getItem('data'));
+
     if (searchText) {
       setSearchText(searchText);
     };
+
     if (data) {
       setSelectedData(data);
     }
     else {
       setSelectedData(defaultData);
+    }
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+
+          const location = {
+            lat: position.coords.latitude,
+            long: position.coords.longitude
+          };
+
+          updateUserLocation(location);
+          console.log(location);
+        },
+        function error(error) {
+          console.log("Error getting location:", error);
+        }
+      )
     }
   }, [])
 
@@ -88,13 +138,7 @@ function App() {
     setSearchText(text);
 
     let newData = defaultData;
-
-    if (text.toLowerCase() === 'murray') {
-      newData = dataForMurray;
-    }
-    else if (text.toLowerCase() === 'paducah') {
-      newData = dataForPaducah;
-    }
+    // console.log(userLocation);
 
     setSelectedData(newData);
     localStorage.setItem('data', JSON.stringify(newData));
@@ -103,12 +147,6 @@ function App() {
   return (
     <div className="App">
         <Navbar/>
-
-        {/* <Routes>
-          <Route path="/" element={<App/>}/>
-          <Route path="/about" element={<About/>} />
-        </Routes> */}
-
         <CurrentLocation searchText={searchText}/>
         <SearchBar onSearch={handleSearch}/>
         <HourlyView data={selectedData.hourly}/>
