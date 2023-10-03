@@ -35,6 +35,7 @@ function App() {
   const [data, setData] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [loadingWeather, setLoadingWeather] = useState(true);
+  const [hasSearchBeenMade, setSearchMade] = useState(false);
 
   const pollWeeklyTrends = async (location) => {
     console.log("Location rendering: ", location);
@@ -174,12 +175,12 @@ function App() {
     setSearchText(text);
     try {
       const [city, state] = text.split(',');
-      console.log('City: ', city);
-      console.log('State: ', state);
+      if (state) {
+
+      }
       const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
-      // TODO: Finish building this URL correctly
       const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
-      const url = `${PORTAL}${city}&limit=5&appid=${apiKey}`;
+      const url = state ? (`${PORTAL}${city},${state}&limit=5&appid=${apiKey}`) : (`${PORTAL}${city}&limit=5&appid=${apiKey}`);
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
@@ -196,6 +197,7 @@ function App() {
     let newData = defaultData;
     setSelectedData(newData);
     localStorage.setItem('data', JSON.stringify(newData));
+    setSearchMade(true);
   };
 
   return (
@@ -205,7 +207,7 @@ function App() {
           <Loading/>
         ) : (
         <>
-          <CurrentLocation searchText={searchText}/>
+          {!hasSearchBeenMade ? (<div className='spacer'></div>) :( <> <CurrentLocation searchText={searchText}/> </>)}
           <SearchBar onSearch={handleSearch}/>
           <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
           <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
