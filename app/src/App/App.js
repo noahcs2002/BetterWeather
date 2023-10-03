@@ -9,19 +9,25 @@ import Loading from '../Loading/Loading';
 
 function App() {
 
-  // const randomChoiceLocations = [
-  //   {name: 'New York city, New York', location: {lat: }},
-  //   {},
-  //   {},
-  //   {},
-  //   {},
-  //   {},
-  //   {},
-  //   {},
-  //   {},
-  //   {},
-  // ]
+  const defaultData = {
+    daily : {
+      xData:[1,2,3,4,5,6,7],
+      yHighs:[1,2,3,4,5,6,7],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
+      title:"Daily Trends (Default dataset)",
+      xAxis:'Hour' ,
+      yAxis:"Temperature",
+    },
 
+    hourly : {
+      xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
+      yHighs:[1,2,3,4,5,6,7],
+      yLows: [60, 60, 60, 60, 60, 60, 60],
+      title:"Hourly Trends (Default dataset)",
+      xAxis:'Hour' ,
+      yAxis:"Temperature",
+    }
+  };
 
   const [searchText, setSearchText] = useState('');
   const [selectedData, setSelectedData] = useState(defaultData);
@@ -31,6 +37,7 @@ function App() {
   const [loadingWeather, setLoadingWeather] = useState(true);
 
   const pollWeeklyTrends = async (location) => {
+    console.log("Location rendering: ", location);
     try {
       var PORTAL = 'https://api.weather.gov/points';
       
@@ -104,7 +111,7 @@ function App() {
               pos => (
                 resolve({
                 lat: pos.coords.latitude,
-                long: pos.coords.longitude
+                long: pos.coords.longitude,
               })),
               error => reject(error)
             );
@@ -122,6 +129,7 @@ function App() {
           console.log("Location denied. Using the default location.");
           console.log("User location is now stored as ", defaultLocation);
           pollWeeklyTrends(defaultLocation);
+          setSearchText("Hoboken, NJ");
         }
         setLoadingLocation(false);
       }
@@ -164,28 +172,26 @@ function App() {
   const handleSearch = async (text) => {
     localStorage.setItem('searchText', text);
     setSearchText(text);
-    
-
     try {
-      const [city, state] = text.split(' ');
+      const [city, state] = text.split(',');
       console.log('City: ', city);
       console.log('State: ', state);
       const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
-      var url = PORTAL;
+      // TODO: Finish building this URL correctly
       const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
-      const mock = `${PORTAL}murray&limit=5&appid=${apiKey}`;
+      const url = `${PORTAL}${city}&limit=5&appid=${apiKey}`;
 
-      const queryResponse = await fetch(mock);
+      const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
 
-      // const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
-      console.log("Geocoding response: ", responseJSON);
+      const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
+      console.log("Geocoding response: ", latLongOfResult);
+      pollWeeklyTrends(latLongOfResult);
 
     }
     catch (err) {
       console.log("error using Geocoding API:", err)
     }
-
 
     let newData = defaultData;
     setSelectedData(newData);
@@ -205,7 +211,6 @@ function App() {
           <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
         </>
         )}
-        
     </div>
   );
 }
