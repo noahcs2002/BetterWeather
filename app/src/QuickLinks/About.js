@@ -22,7 +22,8 @@ const About = () => {
                     <h2> Attribution </h2>
                     <ul>
                         <li> <em> Logo provided by <a target="_blank" className="link" href="https://icons8.com/"> https://icons8.com/ </a></em></li>
-                        <li> <em> API provided by <a target="_blank" className="link" href="https://www.weather.gov/documentation/services-web-api"> The National Weather Service </a></em></li>
+                        <li> <em> Weather API provided by <a target="_blank" className="link" href="https://www.weather.gov/documentation/services-web-api"> The National Weather Service </a></em></li>
+                        <li> <em> Geocoding API provided by <a target="_blank" className="link" href="https://openweathermap.org/api/geocoding-api">OpenWeatherMap </a></em></li>
                     </ul>
                 </div>
             </div>
