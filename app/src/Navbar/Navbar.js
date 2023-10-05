@@ -3,8 +3,16 @@ import './Navbar.scss';
 import logo from '../Resources/logo.png';
 import { Link, useLocation } from 'react-router-dom';
 
+/**
+ * Navbar
+ * @returns React Module to display the navbar
+ * @author Noah Sternberg
+ * @since V1.0.0
+ */
 const Navbar = () => {
 
+  // Get website location to tell where we are, then
+  // show home if we aren't home, about if we aren't on about.
   const location = useLocation();
   return (
     <nav className="navbar">

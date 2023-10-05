@@ -2,6 +2,12 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import './About.scss'
 
+/**
+ * Display the about tab for the quick links
+ * @returns React Module to display about in quicklinks
+ * @author Noah Sternberg
+ * @since V1.0.0
+ */
 const About = () => {
     return (
         <div>

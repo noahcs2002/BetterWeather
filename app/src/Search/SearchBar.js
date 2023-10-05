@@ -2,6 +2,13 @@ import React, {useState} from "react";
 import './SearchBar.scss';
 import searchIcon from '../Resources/search-interface-symbol.png'
 
+/**
+ * Handle searching in the search bar.
+ * @param {*} The function for search handling.
+ * @returns React Module to display
+ * @author Noah Sternberg
+ * @since V1.0.0
+ */
 const SearchBar = ({ onSearch }) => {
     const [searchText, setSearchText] = useState('');
   
