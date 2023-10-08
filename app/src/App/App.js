@@ -6,6 +6,7 @@ import SearchBar from '../Search/SearchBar';
 import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
 import Loading from '../Loading/Loading';
+import Info from '../AdditionalInformation/Info';
 
 function App() {
 
@@ -26,7 +27,9 @@ function App() {
       title:"Hourly Trends (Default dataset)",
       xAxis:'Hour' ,
       yAxis:"Temperature",
-    }
+    },
+
+    today: "None"
   };
 
   // States
@@ -39,13 +42,9 @@ function App() {
   const [hasSearchBeenMade, setSearchMade] = useState(false);
 
   const pollWeeklyTrends = async (location) => {
-    console.log("Location rendering: ", location);
     try {
       var PORTAL = 'https://api.weather.gov/points';
       
-      const userLocation = JSON.parse(localStorage.getItem('location'));
-      console.log(userLocation);
-
       var url = `${PORTAL}/${location.lat},${location.long}`;
 
       const pollResponse = await fetch(url);
@@ -55,6 +54,8 @@ function App() {
       const weeklyForecastResponse = await fetch(pollData.properties.forecast);
       const weeklyForcastData = await weeklyForecastResponse.json();
       const weeklyPeriods = weeklyForcastData.properties.periods
+      const todaysForecast = weeklyPeriods[0];
+      console.log('Today\'s forecast: ', todaysForecast);
 
       var hourlyForecastResponse = await fetch(pollData.properties.forecastHourly);
       var hourlyForecastData = await hourlyForecastResponse.json();
@@ -91,7 +92,7 @@ function App() {
           var seconds = dateObject.getSeconds();
 
           // Format hours, minutes, and seconds as two-digit strings
-          hours = hours < 10 ? "0" + hours : hours;
+          hours = hours       < 10 ? "0" + hours : hours;
           minutes = minutes < 10 ? "0" + minutes : minutes;
           seconds = seconds < 10 ? "0" + seconds : seconds;
 
@@ -101,10 +102,7 @@ function App() {
           yHighsHourView.push(p.temperature);
         }
       });
-      console.log(xDataHourView);
-      console.log(yHighsHourView);
 
-      // console.log("Hourly view xData: ", xDataHourView);
       const dataToModel = {
         daily: {
           xData: xDataWeekView,
@@ -121,7 +119,8 @@ function App() {
           title:`Hourly Trends for ${region}`,
           xAxis:'Hour' ,
           yAxis:"Temperature",
-        }
+        },
+        todaysForecast
       }
 
       setData(dataToModel);
@@ -151,16 +150,13 @@ function App() {
 
           localStorage.setItem('location', JSON.stringify(location));
           updateUserLocation(location);
-          console.log("User location is being saved as ", location);
-          pollWeeklyTrends(location);
+          await pollWeeklyTrends(location);
         }
         catch (error) {
           const defaultLocation = {lat : 40.7128, long : -74.0060};
           localStorage.setItem('location', JSON.stringify(defaultLocation));
           updateUserLocation(defaultLocation);
-          console.log("Location denied. Using the default location.");
-          console.log("User location is now stored as ", defaultLocation);
-          pollWeeklyTrends(defaultLocation);
+          await pollWeeklyTrends(defaultLocation);
           setSearchText("Hoboken, NJ");
         }
         setLoadingLocation(false);
@@ -173,9 +169,7 @@ function App() {
 
     const startup = async () => {
       await getLocationPermission();
-      await new Promise(() => {
-        pollWeeklyTrends()
-      });
+      pollWeeklyTrends();
     }
     startup();
 
@@ -227,7 +221,6 @@ function App() {
     let newData = defaultData;
     setSelectedData(newData);
     localStorage.setItem('data', JSON.stringify(newData));
-    // await new Promise(r => setTimeout(r, 2000));
     setSearchMade(true);
     setLoadingLocation(false);
   };
@@ -238,8 +231,15 @@ function App() {
         {loadingLocation || loadingWeather ? (<Loading/>) : (<>
           {!hasSearchBeenMade ? (<div className='spacer'></div>) :( <> <CurrentLocation searchText={searchText}/> </>)}
           <SearchBar onSearch={handleSearch}/>
-          <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
-          <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+          <div className='side-by-side'>
+              <div className='views'>
+                  <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
+                  <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+              </div>
+              <div className='info-holder'>
+                  <Info data={JSON.parse(localStorage.getItem('data'))}/>
+              </div>
+          </div>
         </>)}
     </div>
   );
