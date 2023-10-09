@@ -32,24 +32,20 @@ function App() {
     today: "None"
   };
 
-  // States
+  const [loading, setLoading] = useState(true);
+  const [data, setSelectedData] = useState(defaultData);
   const [searchText, setSearchText] = useState('');
-  const [selectedData, setSelectedData] = useState(defaultData);
-  const [userLocation, updateUserLocation] = useState(null);
-  const [data, setData] = useState(null);
-  const [loadingLocation, setLoadingLocation] = useState(true);
-  const [loadingWeather, setLoadingWeather] = useState(true);
+  const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
 
-  const pollWeeklyTrends = async (location) => {
+  const loadWeather = async () => {
     try {
+      const userLocation = JSON.parse(localStorage.getItem('place'));
       var PORTAL = 'https://api.weather.gov/points';
-      
-      var url = `${PORTAL}/${location.lat},${location.long}`;
-
+      var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
       const pollData = await pollResponse.json();
-      setData(pollData);
+      setSelectedData(pollData);
       const region = `${pollData.properties.relativeLocation.properties.city}, ${pollData.properties.relativeLocation.properties.state}`
       const weeklyForecastResponse = await fetch(pollData.properties.forecast);
       const weeklyForcastData = await weeklyForecastResponse.json();
@@ -72,6 +68,7 @@ function App() {
       weeklyPeriods.forEach(period => {
         const name = period.name;
         const temperature = period.temperature;
+        console.log(period);
 
         if (period.isDaytime) {
           xDataWeekView.push(name);
@@ -123,86 +120,23 @@ function App() {
         todaysForecast
       }
 
-      setData(dataToModel);
+      setSelectedData(dataToModel);
       localStorage.setItem('data', JSON.stringify(dataToModel));
 
     }
     catch (error) {
       console.log("Error with polling: ", error);
     }
-    setLoadingWeather(false);
+    console.log('Data: ', JSON.parse(localStorage.getItem('data')));
+    setLoading(false);
   }
 
-  useEffect(() => {
-    const getLocationPermission = async () => {
-      if ("geolocation" in navigator) {
-        try {
-          const location = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-              pos => (
-                resolve({
-                lat: pos.coords.latitude,
-                long: pos.coords.longitude,
-              })),
-              error => reject(error)
-            );
-          });
-
-          localStorage.setItem('location', JSON.stringify(location));
-          updateUserLocation(location);
-          await pollWeeklyTrends(location);
-        }
-        catch (error) {
-          const defaultLocation = {lat : 40.7128, long : -74.0060};
-          localStorage.setItem('location', JSON.stringify(defaultLocation));
-          updateUserLocation(defaultLocation);
-          await pollWeeklyTrends(defaultLocation);
-          setSearchText("Hoboken, NJ");
-        }
-        setLoadingLocation(false);
-      }
-      else {
-        console.log("no navigation allowed");
-      }
-      setLoadingLocation(false);
-    }
-
-    const startup = async () => {
-      await getLocationPermission();
-      pollWeeklyTrends();
-    }
-    startup();
-
-    const searchText = localStorage.getItem('searchText');
-    const data = JSON.parse(localStorage.getItem('data'));
-
-    if (searchText) {
-      setSearchText(searchText);
-    };
-
-    if (data) {
-      setSelectedData(data);
-    }
-    else {
-      setSelectedData(defaultData);
-    }
-
-  }, [])
-
-  useEffect(() => {
-    if(userLocation && !loadingLocation && !loadingWeather) {
-      pollWeeklyTrends(userLocation);
-    }
-  }, [userLocation, loadingLocation, loadingWeather]);
-
   const handleSearch = async (text) => {
-    setLoadingLocation(true);
-    localStorage.setItem('searchText', text);
+    setLoading(true);
     setSearchText(text);
+
     try {
       const [city, state] = text.split(',');
-      if (state) {
-      }
       const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
       const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
       const url = state ? (`${PORTAL}${city},${state}&limit=5&appid=${apiKey}`) : (`${PORTAL}${city}&limit=5&appid=${apiKey}`);
@@ -212,24 +146,35 @@ function App() {
 
       const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
       console.log("Geocoding response: ", latLongOfResult);
-      pollWeeklyTrends(latLongOfResult);
+      localStorage.setItem('place', JSON.stringify(latLongOfResult));
+      setPlace(latLongOfResult);
     }
     catch (err) {
       console.log("error using Geocoding API:", err)
     }
 
-    let newData = defaultData;
-    setSelectedData(newData);
-    localStorage.setItem('data', JSON.stringify(newData));
-    setSearchMade(true);
-    setLoadingLocation(false);
+    await loadWeather(place);
+    setLoading(false);
   };
 
+  useEffect(() => { 
+    const start = async () => {
+      await handleSearch('Murray');
+      console.log('Location is: ', JSON.parse(localStorage.getItem('data')))
+    }
+
+    start();
+  }, []);
+
   return (
-    <div className="App">
+    <div className='App'>
         <Navbar/>
-        {loadingLocation || loadingWeather ? (<Loading/>) : (<>
-          {!hasSearchBeenMade ? (<div className='spacer'></div>) :( <> <CurrentLocation searchText={searchText}/> </>)}
+        {loading 
+        ? (<Loading/>) 
+        : (<>
+        {!hasSearchBeenMade 
+        ? (<div className='spacer'></div>)
+        : ( <> <CurrentLocation searchText={searchText}/> </> )}
           <SearchBar onSearch={handleSearch}/>
           <div className='side-by-side'>
               <div className='views'>
@@ -242,7 +187,25 @@ function App() {
           </div>
         </>)}
     </div>
-  );
+  )
+  // return (
+  //   <div className="App">
+  //       <Navbar/>
+  //       {loadingLocation || loadingWeather ? (<Loading/>) : (<>
+  //         {!hasSearchBeenMade ? (<div className='spacer'></div>) :( <> <CurrentLocation searchText={searchText}/> </>)}
+  //         <SearchBar onSearch={handleSearch}/>
+  //         <div className='side-by-side'>
+  //             <div className='views'>
+  //                 <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
+  //                 <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+  //             </div>
+  //             <div className='info-holder'>
+  //                 <Info data={JSON.parse(localStorage.getItem('data'))}/>
+  //             </div>
+  //         </div>
+  //       </>)}
+  //   </div>
+  // );
 }
 
 export default App;
