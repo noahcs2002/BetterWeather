@@ -3,9 +3,6 @@ import { useState } from "react";
 import './info.scss';
 
 const Info = (data) => {
-    console.log('DATA: ', data)
-
-    console.log('Current daily forecast: ', data.data.todaysForecast);
     const today = data.data.todaysForecast;
 
     return (

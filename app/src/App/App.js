@@ -7,7 +7,7 @@ import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
 import Loading from '../Loading/Loading';
 import Info from '../AdditionalInformation/Info';
-import { useLoaderData } from 'react-router-dom';
+import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 
 function App() {
 
@@ -38,9 +38,13 @@ function App() {
   const [searchText, setSearchText] = useState('');
   const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
+  const [areAlertsPresent, setAlertsPresent] = useState(false);
 
   const loadWeather = async () => {
     try {
+      const alertPortal = 'https://api.weather.gov/alerts/active?point=';
+
+
       const userLocation = JSON.parse(localStorage.getItem('place'));
       var PORTAL = 'https://api.weather.gov/points';
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
@@ -52,11 +56,24 @@ function App() {
       const weeklyForcastData = await weeklyForecastResponse.json();
       const weeklyPeriods = weeklyForcastData.properties.periods
       const todaysForecast = weeklyPeriods[0];
-      console.log('Today\'s forecast: ', todaysForecast);
+      // console.log('Today\'s forecast: ', todaysForecast);
 
       var hourlyForecastResponse = await fetch(pollData.properties.forecastHourly);
       var hourlyForecastData = await hourlyForecastResponse.json();
       var hourlyPeriods = hourlyForecastData.properties.periods;
+
+      var alertUrl = `${alertPortal}${userLocation.lat},${userLocation.long}`;
+      var alerts = await fetch(alertUrl);
+      var alertJson = await alerts.json();
+      console.log(alertJson);
+
+      if (alertJson.features.length != 0) {
+        localStorage.setItem('alerts', JSON.stringify(alertJson.features));
+        setAlertsPresent(true);
+      }
+      else {
+        setAlertsPresent(false);
+      }
 
       const xDataWeekView = [];
       const yHighsWeekView = [];
@@ -69,7 +86,7 @@ function App() {
       weeklyPeriods.forEach(period => {
         const name = period.name;
         const temperature = period.temperature;
-        console.log(period);
+        // console.log(period);
 
         if (period.isDaytime) {
           xDataWeekView.push(name);
@@ -128,7 +145,7 @@ function App() {
     catch (error) {
       console.log("Error with polling: ", error);
     }
-    console.log('Data: ', JSON.parse(localStorage.getItem('data')));
+    // console.log('Data: ', JSON.parse(localStorage.getItem('data')));
     setLoading(false);
   }
 
@@ -146,7 +163,7 @@ function App() {
       const responseJSON = await queryResponse.json();
 
       const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
-      console.log("Geocoding response: ", latLongOfResult);
+      // console.log("Geocoding response: ", latLongOfResult);
       localStorage.setItem('place', JSON.stringify(latLongOfResult));
       setPlace(latLongOfResult);
     }
@@ -155,11 +172,11 @@ function App() {
     }
 
     await loadWeather(place);
+    setSearchMade(true);
     setLoading(false);
   };
 
   useEffect(() => { 
-
     const getLocationPermission = async () => {
       setLoading(true);
       if ("geolocation" in navigator) {
@@ -203,12 +220,9 @@ function App() {
   return (
     <div className='App'>
         <Navbar/>
-        {loading 
-        ? (<Loading/>) 
-        : (<>
-        {!hasSearchBeenMade 
-        ? (<div className='spacer'></div>)
-        : ( <> <CurrentLocation searchText={searchText}/> </> )}
+        {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))}/>) : (<></>)}
+        {loading ? (<Loading/>) 
+        :(<>{!hasSearchBeenMade ? (<div className='spacer'></div>):(<> <CurrentLocation searchText={searchText}/> </> )}
           <SearchBar onSearch={handleSearch}/>
           <div className='side-by-side'>
               <div className='views'>

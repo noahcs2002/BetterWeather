@@ -12,7 +12,7 @@ import { Link, useLocation } from 'react-router-dom';
 const Navbar = () => {
 
   // Get website location to tell where we are, then
-  // show home if we aren't home, about if we aren't on about.
+  // show home if we aren't home, about if we aren't on about etc.
   const location = useLocation();
   return (
     <nav className="navbar">
