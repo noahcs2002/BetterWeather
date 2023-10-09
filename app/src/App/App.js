@@ -7,6 +7,7 @@ import CurrentLocation from '../CurrentLocation/CurrentLocation';
 import React, {useEffect, useState} from 'react';
 import Loading from '../Loading/Loading';
 import Info from '../AdditionalInformation/Info';
+import { useLoaderData } from 'react-router-dom';
 
 function App() {
 
@@ -158,9 +159,42 @@ function App() {
   };
 
   useEffect(() => { 
+
+    const getLocationPermission = async () => {
+      setLoading(true);
+      if ("geolocation" in navigator) {
+        try {
+          const location = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+              pos => (
+                resolve({
+                lat: pos.coords.latitude,
+                long: pos.coords.longitude,
+              })),
+              error => reject(error)
+            );
+          });
+
+          localStorage.setItem('place', JSON.stringify(location));
+          setPlace(location);
+        }
+        catch (error) {
+          const defaultLocation = {lat : 40.7128, long : -74.0060};
+          localStorage.setItem('place', JSON.stringify(defaultLocation));
+          setPlace(defaultLocation);
+          setSearchText("Hoboken, NJ");
+        }
+        setLoading(false);
+      }
+      else {
+        console.log("no navigation allowed");
+      }
+      setLoading(false);
+    }
+
     const start = async () => {
-      await handleSearch('Murray');
-      console.log('Location is: ', JSON.parse(localStorage.getItem('data')))
+      await getLocationPermission();
+      await loadWeather();
     }
 
     start();
@@ -188,24 +222,6 @@ function App() {
         </>)}
     </div>
   )
-  // return (
-  //   <div className="App">
-  //       <Navbar/>
-  //       {loadingLocation || loadingWeather ? (<Loading/>) : (<>
-  //         {!hasSearchBeenMade ? (<div className='spacer'></div>) :( <> <CurrentLocation searchText={searchText}/> </>)}
-  //         <SearchBar onSearch={handleSearch}/>
-  //         <div className='side-by-side'>
-  //             <div className='views'>
-  //                 <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
-  //                 <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
-  //             </div>
-  //             <div className='info-holder'>
-  //                 <Info data={JSON.parse(localStorage.getItem('data'))}/>
-  //             </div>
-  //         </div>
-  //       </>)}
-  //   </div>
-  // );
 }
 
 export default App;

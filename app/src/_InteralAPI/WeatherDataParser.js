@@ -44,9 +44,7 @@ function App() {
   const pollWeeklyTrends = async (location) => {
     try {
       var PORTAL = 'https://api.weather.gov/points';
-      
       var url = `${PORTAL}/${location.lat},${location.long}`;
-
       const pollResponse = await fetch(url);
       const pollData = await pollResponse.json();
       setData(pollData);
