@@ -132,12 +132,13 @@ function App() {
         }
       });
 
+
       const dataToModel = {
         daily: {
           xData: xDataWeekView,
           yHighs : yHighsWeekView,
           yLows : yLowsWeekView,
-          title: `Weekly outlook for ${localStorage.getItem('region')}`,
+          title: `Weekly outlook for ${region}`,
           xAxis:'Day' ,
           yAxis:"Temperature",
         },
@@ -145,7 +146,7 @@ function App() {
           xData:xDataHourView,
           yHighs:yHighsHourView,
           yLows: yHighsHourView,
-          title:`Hourly Trends for ${localStorage.getItem('region')}`,
+          title:`Hourly Trends for ${region}`,
           xAxis:'Hour' ,
           yAxis:"Temperature",
         },
