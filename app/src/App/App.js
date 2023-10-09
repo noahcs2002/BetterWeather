@@ -33,6 +33,20 @@ function App() {
     today: "None"
   };
 
+  const randomLocations = [
+    {lat: 40.7128, long: -74.0060, name: 'New York City, NY'},
+    {lat: 34.0522, long: -118.2437, name: 'Los Angeles, CA'},
+    {lat: 41.8781, long: -87.6298, name: 'Chicago, IL'},
+    {lat: 29.7604, long: -95.3698, name: 'Houston, TX'},
+    {lat: 25.7617, long: -80.1918, name: 'Miami, FL'},
+    {lat: 37.7749, long: -122.4194, name: 'San Francisco, CA'},
+    {lat: 47.6062, long: -122.3321, name: 'Seattle, WA'},
+    {lat: 42.3601, long: -71.0589, name: 'Boston, MA'},
+    {lat: 33.7490, long: -84.3880, name: 'Atlanta, GA'},
+    {lat: 36.1699, long: -115.1398, name: 'Las Vegas, NV'}
+];
+
+
   const [loading, setLoading] = useState(true);
   const [data, setSelectedData] = useState(defaultData);
   const [searchText, setSearchText] = useState('');
@@ -123,7 +137,7 @@ function App() {
           xData: xDataWeekView,
           yHighs : yHighsWeekView,
           yLows : yLowsWeekView,
-          title: `Weekly outlook for ${region}`,
+          title: `Weekly outlook for ${localStorage.getItem('region')}`,
           xAxis:'Day' ,
           yAxis:"Temperature",
         },
@@ -131,7 +145,7 @@ function App() {
           xData:xDataHourView,
           yHighs:yHighsHourView,
           yLows: yHighsHourView,
-          title:`Hourly Trends for ${region}`,
+          title:`Hourly Trends for ${localStorage.getItem('region')}`,
           xAxis:'Hour' ,
           yAxis:"Temperature",
         },
@@ -196,10 +210,11 @@ function App() {
           setPlace(location);
         }
         catch (error) {
-          const defaultLocation = {lat : 40.7128, long : -74.0060};
+          const defaultLocation = randomLocations[Math.floor(Math.random() * 10)];
           localStorage.setItem('place', JSON.stringify(defaultLocation));
-          setPlace(defaultLocation);
-          setSearchText("Hoboken, NJ");
+          setPlace({lat:defaultLocation.lat, long:defaultLocation.long});
+          setSearchText(defaultLocation.name);
+          localStorage.setItem('region', defaultLocation.name);
         }
         setLoading(false);
       }
