@@ -10,14 +10,18 @@ import Plot from 'react-plotly.js'
  * @since V1.0.0
  * @note This uses the Plotly.JS library
  */
-export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title}) {
+export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title, type}) {
 
     // Store the trace for the high values
+
+    const graphType = type=='s' ? ('scatter') : ('bar');
+    console.log('Graph type : , ', graphType);
+
     const highValues = {
         x: xData,
         y: yHighs,
         mode:'lines',
-        type:'bar',
+        type: graphType,
         marker: {color:'042048', size:8},
         name: 'High',
         text: yHighs.map(v => `${v}`),
@@ -34,7 +38,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
             x: xData,
             y: yLows,
             mode:'lines',
-            type:'bar',
+            type:graphType,
             marker: {color:'3498db', size:8},
             name: 'Low',
             text: yLows.map(v => `${v}`),
@@ -44,11 +48,12 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
     }
     
     const data = yHighs ? ([highValues, lowValues]) : ([highValues]);
+    const yAxisLayout = type=='s' ? ({title: yAxis, range:[0,100]}) : ({title: yAxis});
 
     const layout = {
         title: title,
         xaxis: {title: xAxis},
-        yaxis: {title: yAxis}
+        yaxis: yAxisLayout
     };
 
     return (

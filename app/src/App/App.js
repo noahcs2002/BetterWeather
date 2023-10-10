@@ -8,6 +8,7 @@ import React, {useEffect, useState} from 'react';
 import Loading from '../Loading/Loading';
 import Info from '../AdditionalInformation/Info';
 import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
+import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 
 function App() {
 
@@ -150,7 +151,8 @@ function App() {
           xAxis:'Hour' ,
           yAxis:"Temperature",
         },
-        todaysForecast
+        todaysForecast,
+        weeklyPeriods,
       }
 
       setSelectedData(dataToModel);
@@ -244,6 +246,7 @@ function App() {
               <div className='views'>
                   <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
                   <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+                  <Precipitation data={JSON.parse(localStorage.getItem('data'))}/>
               </div>
               <div className='info-holder'>
                   <Info data={JSON.parse(localStorage.getItem('data'))}/>
