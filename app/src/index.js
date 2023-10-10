@@ -5,6 +5,8 @@ import App from './App/App';
 import reportWebVitals from './_Other/reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import About from './QuickLinks/About';
+import BugReport from './Reporting/BugReport';
+import CityReport from './Reporting/CityReport';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +15,8 @@ root.render(
       <Routes>
         <Route path="/" element={ <App /> }> </Route>
         <Route path="/about" element={<About/>}> </Route>
+        <Route path='/bug-report' element={<BugReport/>}> </Route>
+        <Route path='/city-report' element={<CityReport/>}> </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
