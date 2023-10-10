@@ -5,7 +5,7 @@ import './Report.scss';
 const CityReport = () => {
 
     const click = () => {
-        window.open('https://docs.google.com/forms/d/e/1FAIpQLSeSgNyoPu2BuovrdX4Q3w931P9D6ri1U2u5sq_i8vgq2-DM_Q/viewform?usp=sf_link');
+        window.open('https://forms.gle/42TKjUJhjP9qQrfc7');
     }
 
     return (
@@ -19,7 +19,7 @@ const CityReport = () => {
                         For instance, if you search for 'Nashville' and get something that isn't Nashville,
                         report it here, and we'll try and fix it ASAP.
                     </p>
-                    <p className="clickable" onClick={click}> https://docs.google.com/forms/d/e/1FAIpQLSeSgNyoPu2BuovrdX4Q3w931P9D6ri1U2u5sq_i8vgq2-DM_Q/viewform?usp=sf_link </p>
+                    <p className="clickable" onClick={click}> https://forms.gle/42TKjUJhjP9qQrfc7 </p>
                 </div>
             </div>
         </div>
