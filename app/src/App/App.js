@@ -209,7 +209,7 @@ function App() {
   return (
     <div className='App'>
         <Navbar/>
-        {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))}/>) : (<></>)}
+        {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
         {loading ? (<Loading/>) 
         :(<>{!hasSearchBeenMade ? (<div className='spacer'></div>):(<> <CurrentLocation searchText={searchText}/> </> )}
           <SearchBar onSearch={handleSearch}/>
