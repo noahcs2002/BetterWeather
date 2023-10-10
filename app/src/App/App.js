@@ -12,28 +12,6 @@ import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 
 function App() {
 
-  const defaultData = {
-    daily : {
-      xData:[1,2,3,4,5,6,7],
-      yHighs:[1,2,3,4,5,6,7],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title:"Daily Trends (Default dataset)",
-      xAxis:'Hour' ,
-      yAxis:"Temperature",
-    },
-
-    hourly : {
-      xData:['12:00', "1:00", '2:00', '3:00', '4:00', '5:00', '6:00'],
-      yHighs:[1,2,3,4,5,6,7],
-      yLows: [60, 60, 60, 60, 60, 60, 60],
-      title:"Hourly Trends (Default dataset)",
-      xAxis:'Hour' ,
-      yAxis:"Temperature",
-    },
-
-    today: "None"
-  };
-
   const randomLocations = [
     {lat: 40.7128, long: -74.0060, name: 'New York City, NY'},
     {lat: 34.0522, long: -118.2437, name: 'Los Angeles, CA'},
@@ -49,7 +27,7 @@ function App() {
 
 
   const [loading, setLoading] = useState(true);
-  const [data, setSelectedData] = useState(defaultData);
+  const [data, setSelectedData] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
@@ -71,7 +49,6 @@ function App() {
       const weeklyForcastData = await weeklyForecastResponse.json();
       const weeklyPeriods = weeklyForcastData.properties.periods
       const todaysForecast = weeklyPeriods[0];
-      // console.log('Today\'s forecast: ', todaysForecast);
 
       var hourlyForecastResponse = await fetch(pollData.properties.forecastHourly);
       var hourlyForecastData = await hourlyForecastResponse.json();
@@ -80,7 +57,6 @@ function App() {
       var alertUrl = `${alertPortal}${userLocation.lat},${userLocation.long}`;
       var alerts = await fetch(alertUrl);
       var alertJson = await alerts.json();
-      console.log(alertJson);
 
       if (alertJson.features.length != 0) {
         localStorage.setItem('alerts', JSON.stringify(alertJson.features));
@@ -101,7 +77,6 @@ function App() {
       weeklyPeriods.forEach(period => {
         const name = period.name;
         const temperature = period.temperature;
-        // console.log(period);
 
         if (period.isDaytime) {
           xDataWeekView.push(name);
@@ -162,13 +137,13 @@ function App() {
     catch (error) {
       console.log("Error with polling: ", error);
     }
-    // console.log('Data: ', JSON.parse(localStorage.getItem('data')));
     setLoading(false);
   }
 
   const handleSearch = async (text) => {
     setLoading(true);
     setSearchText(text);
+    setAlertsPresent(false);
 
     try {
       const [city, state] = text.split(',');
@@ -180,7 +155,6 @@ function App() {
       const responseJSON = await queryResponse.json();
 
       const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
-      // console.log("Geocoding response: ", latLongOfResult);
       localStorage.setItem('place', JSON.stringify(latLongOfResult));
       setPlace(latLongOfResult);
     }

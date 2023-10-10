@@ -13,9 +13,7 @@ import Plot from 'react-plotly.js'
 export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title, type}) {
 
     // Store the trace for the high values
-
     const graphType = type=='s' ? ('scatter') : ('bar');
-    console.log('Graph type : , ', graphType);
 
     const highValues = {
         x: xData,

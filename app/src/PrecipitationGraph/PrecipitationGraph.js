@@ -21,9 +21,6 @@ export default function Precipitation({data}) {
         }
     })
 
-
-    console.log('Periods recieved: ', data.weeklyPeriods);
-
     return (
         <div className="precip">
             <h2> Precipitation Chances: </h2>

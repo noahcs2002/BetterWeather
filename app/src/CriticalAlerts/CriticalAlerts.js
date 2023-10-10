@@ -2,7 +2,6 @@ import React from "react";
 import './CriticalAlerts.scss';
 
 const CriticalAlerts = ({alerts}) => {
-    console.log('Alerts received: ', alerts);
 
     return (
         <div className="alert">
