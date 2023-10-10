@@ -6,7 +6,6 @@ export default function Precipitation({data}) {
 
 
     const xData=data.daily.xData;
-    const yHighs=[]
     var yLows=[]
     const title='Precipitation Chances';
     const xAxis='Day';

@@ -12,7 +12,6 @@ import Visualisation from "../Vis/Visualisation";
 export default function HourlyView({data}) {
     // Take the data from the 'hourly' part of the data passed in
     const xData=data.hourly.xData
-    const yHighs=data.hourly.yHighs;
     const yLows=data.hourly.yLows;
     const title=data.hourly.title;
     const xAxis=data.hourly.xAxis;

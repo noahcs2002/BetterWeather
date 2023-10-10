@@ -27,7 +27,6 @@ function App() {
 
 
   const [loading, setLoading] = useState(true);
-  const [data, setSelectedData] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
@@ -43,7 +42,6 @@ function App() {
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
       const pollData = await pollResponse.json();
-      setSelectedData(pollData);
       const region = `${pollData.properties.relativeLocation.properties.city}, ${pollData.properties.relativeLocation.properties.state}`
       const weeklyForecastResponse = await fetch(pollData.properties.forecast);
       const weeklyForcastData = await weeklyForecastResponse.json();
@@ -58,7 +56,7 @@ function App() {
       var alerts = await fetch(alertUrl);
       var alertJson = await alerts.json();
 
-      if (alertJson.features.length != 0) {
+      if (alertJson.features.length !== 0) {
         localStorage.setItem('alerts', JSON.stringify(alertJson.features));
         setAlertsPresent(true);
       }
@@ -130,7 +128,6 @@ function App() {
         weeklyPeriods,
       }
 
-      setSelectedData(dataToModel);
       localStorage.setItem('data', JSON.stringify(dataToModel));
 
     }

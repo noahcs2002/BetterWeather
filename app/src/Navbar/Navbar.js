@@ -23,6 +23,7 @@ const Navbar = () => {
                 src={logo}
                 width={75}
                 height={75}
+                alt='Logo'
             />
           </Link> 
         </div>
