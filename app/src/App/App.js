@@ -169,6 +169,7 @@ function App() {
   const handleSearch = async (text) => {
     setLoading(true);
     setSearchText(text);
+    setAlertsPresent(false);
 
     try {
       const [city, state] = text.split(',');
