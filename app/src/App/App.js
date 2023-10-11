@@ -32,7 +32,7 @@ function App() {
    * SET THIS TO TRUE IF THE SITE IS UNDER MAINTENANCE
    * 
    */
-  const underMaintenance = true;
+  const underMaintenance = false;
   /**
    * 
    * 
@@ -48,7 +48,7 @@ function App() {
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
-  const versionNumber = 'V1.2.0.45';
+  const versionNumber = 'V1.3.0';
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
