@@ -9,6 +9,7 @@ import Loading from '../Loading/Loading';
 import Info from '../AdditionalInformation/Info';
 import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
+import Maintenance from '../Maintenance/Maintenace';
 
 function App() {
 
@@ -25,6 +26,18 @@ function App() {
     {lat: 36.1699, long: -115.1398, name: 'Las Vegas, NV'}
 ];
 
+
+  /**
+   * 
+   * SET THIS TO TRUE IF THE SITE IS UNDER MAINTENANCE
+   * 
+   */
+  const underMaintenance = false;
+  /**
+   * 
+   * 
+   * 
+   */
 
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
@@ -207,7 +220,11 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
+    <div>
+
+      {underMaintenance ? (<Maintenance/>) :
+      (
+        <div className='App'>
         <Navbar/>
         {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
         {loading ? (<Loading/>) 
@@ -222,9 +239,13 @@ function App() {
               <div className='info-holder'>
                   <Info data={JSON.parse(localStorage.getItem('data'))}/>
               </div>
-          </div>
-        </>)}
+            </div>
+          </>)}
+        </div>
+      )}
+
     </div>
+    
   )
 }
 
