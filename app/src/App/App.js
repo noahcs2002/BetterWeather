@@ -9,6 +9,7 @@ import Loading from '../Loading/Loading';
 import Info from '../AdditionalInformation/Info';
 import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
+import Footer from '../Footing/Footer';
 
 function App() {
 
@@ -25,18 +26,23 @@ function App() {
     {lat: 36.1699, long: -115.1398, name: 'Las Vegas, NV'}
 ];
 
-
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
   const [areAlertsPresent, setAlertsPresent] = useState(false);
 
+  /**
+   * Spacing for easy finding on the VSCode MiniMap
+   */
+  const versionNumber = 'V1.2.0.45';
+  /**
+   * Spacing for easy finding on the VSCode MiniMap
+   */
+
   const loadWeather = async () => {
     try {
       const alertPortal = 'https://api.weather.gov/alerts/active?point=';
-
-
       const userLocation = JSON.parse(localStorage.getItem('place'));
       var PORTAL = 'https://api.weather.gov/points';
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
@@ -199,6 +205,7 @@ function App() {
     }
 
     const start = async () => {
+
       await getLocationPermission();
       await loadWeather();
     }
@@ -208,7 +215,7 @@ function App() {
 
   return (
     <div className='App'>
-        <Navbar/>
+        <Navbar versionNumber={versionNumber}/>
         {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
         {loading ? (<Loading/>) 
         :(<>{!hasSearchBeenMade ? (<div className='spacer'></div>):(<> <CurrentLocation searchText={searchText}/> </> )}
@@ -223,6 +230,7 @@ function App() {
                   <Info data={JSON.parse(localStorage.getItem('data'))}/>
               </div>
           </div>
+          <Footer versionNumber={versionNumber}/>
         </>)}
     </div>
   )

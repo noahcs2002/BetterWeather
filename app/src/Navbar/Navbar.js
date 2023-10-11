@@ -9,7 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
  * @author Noah Sternberg
  * @since V1.0.0
  */
-const Navbar = () => {
+const Navbar = ({versionNumber}) => {
 
   // Get website location to tell where we are, then
   // show home if we aren't home, about if we aren't on about etc.
@@ -31,7 +31,9 @@ const Navbar = () => {
           <p>BetterWeather</p>
         </div>
         
+        
       </div>
+      
       <ul className="nav-links">
         {location.pathname !== '/' && <li><Link to="/" className='link'> Home </Link></li>}
         {location.pathname !== '/about' && <li><Link to="/about" className='link'> About </Link></li>}
