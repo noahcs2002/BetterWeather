@@ -1,4 +1,4 @@
-# Pull Request Template
+# Pull Request
 
 ## Naming
 Make sure you include a JIRA ticket number in the branch name, and use `pr/BET-xx-some-shorter-description` as the format. If the changes being made are from a branch that 
