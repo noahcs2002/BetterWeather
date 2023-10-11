@@ -1,0 +1,11 @@
+@import '../_Other/standard.scss';
+
+.main {
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    margin: 2.5%;
+}

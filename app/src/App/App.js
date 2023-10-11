@@ -10,6 +10,7 @@ import Info from '../AdditionalInformation/Info';
 import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 import Footer from '../Footing/Footer';
+import Maintenance from '../Maintenance/Maintenance';
 
 function App() {
 
@@ -25,6 +26,18 @@ function App() {
     {lat: 33.7490, long: -84.3880, name: 'Atlanta, GA'},
     {lat: 36.1699, long: -115.1398, name: 'Las Vegas, NV'}
 ];
+
+  /**
+   * 
+   * SET THIS TO TRUE IF THE SITE IS UNDER MAINTENANCE
+   * 
+   */
+  const underMaintenance = true;
+  /**
+   * 
+   * 
+   * 
+   */
 
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
@@ -215,7 +228,7 @@ function App() {
 
   return (
     <div className='App'>
-        <Navbar versionNumber={versionNumber}/>
+      {underMaintenance ? (<Maintenance/>) : (<><Navbar versionNumber={versionNumber}/>
         {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
         {loading ? (<Loading/>) 
         :(<>{!hasSearchBeenMade ? (<div className='spacer'></div>):(<> <CurrentLocation searchText={searchText}/> </> )}
@@ -231,7 +244,7 @@ function App() {
               </div>
           </div>
           <Footer versionNumber={versionNumber}/>
-        </>)}
+        </>)}</>)}
     </div>
   )
 }
