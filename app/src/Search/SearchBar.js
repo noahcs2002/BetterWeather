@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './SearchBar.scss';
 import searchIcon from '../Resources/search-interface-symbol.png'
 
@@ -25,14 +25,28 @@ const SearchBar = ({ onSearch }) => {
         handleSearchClick();
       }
     }
-  
+
+    const samples = [
+      'Lexington, KY',
+      'Murray, KY',
+      'Seattle, WA',
+      'Portland',
+      'Mount Carmel',
+      'Evansville',
+      'New York City, NY',
+      'Chicago, IL',
+      'Palm Beach, FL',
+      'Fairbanks'
+    ]
+    const placeholder = samples[Math.floor(Math.random() * 10)];
+    
     return (
       <div className="search-bar-container">
         <input
           id="searchTextField"
           type="text"
           className="search-input"
-          placeholder="Search..."
+          placeholder={placeholder}
           value={searchText}
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
