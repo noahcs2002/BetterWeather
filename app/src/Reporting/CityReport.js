@@ -4,8 +4,10 @@ import './Report.scss';
 
 const CityReport = () => {
 
+    const formURL = 'https://forms.gle/42TKjUJhjP9qQrfc7';
+    
     const click = () => {
-        window.open('https://forms.gle/42TKjUJhjP9qQrfc7');
+        window.open(formURL);
     }
 
     return (
@@ -19,7 +21,7 @@ const CityReport = () => {
                         For instance, if you search for 'Nashville' and get something that isn't Nashville,
                         report it here, and we'll try and fix it ASAP.
                     </p>
-                    <p className="clickable" onClick={click}> https://forms.gle/42TKjUJhjP9qQrfc7 </p>
+                    <p className="clickable" onClick={click}> {formURL} </p>
                 </div>
             </div>
         </div>

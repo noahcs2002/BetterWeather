@@ -10,14 +10,19 @@ const Info = (data) => {
             <div className="extra">
                 <h2> Brief Overview </h2>
                 <p> {today.detailedForecast} </p>
+
                 <h2> Humidity </h2>
                 <p> {today.relativeHumidity.value}%</p>
+
                 <h2> Wind </h2>
                 <p> {today.windSpeed} {today.windDirection} </p>
+
                 <h2> Precipitation </h2>
-                {today.probabilityOfPrecipitation.value !== null ? (
-                    <p>{today.probabilityOfPrecipitation.value}</p>
-                ) : <p> No information provided by the NWS </p>}
+                {
+                    today.probabilityOfPrecipitation.value !== null 
+                    ? ( <p>{today.probabilityOfPrecipitation.value}</p> ) 
+                    : (<p> No information provided by the NWS </p>)
+                }
                 
             </div>
         </div>

@@ -21,7 +21,7 @@ const LoadingAnimation = () => {
         };
     }, []);
 
-    return <div className="animation">{`Loading Weather Data${'.'.repeat(dots)}`}</div>;
+    return <div className="animation"> {`Loading Weather Data${'.'.repeat(dots)}`} </div>;
 }   
 
 export default LoadingAnimation;
