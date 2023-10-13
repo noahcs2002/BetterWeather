@@ -4,8 +4,10 @@ import './Report.scss';
 
 const BugReport = () => {
 
+    const formURL = 'https://forms.gle/jFh43d2ZiPZpVZg98';
+    
     const click = () => {
-        window.open('https://forms.gle/jFh43d2ZiPZpVZg98');
+        window.open(formURL);
     }
 
     return (
@@ -18,7 +20,7 @@ const BugReport = () => {
                         Please click the link below to fill out a Google Form for reporting bugs. If your browser does not support
                         redirecting links, feel free to copy the text and paste it into the browser.
                     </p>
-                    <p className="clickable" onClick={click}> https://forms.gle/jFh43d2ZiPZpVZg98 </p>
+                    <p className="clickable" onClick={click}> {formURL} </p>
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ import Visualisation from "../Vis/Visualisation";
  * @since V1.0.0
  */
 export default function DailyView({data}) {
+    
     // Take data from the 'daily' part of the data it's passed.
     const xData=data.daily.xData
     const yHighs=data.daily.yHighs;

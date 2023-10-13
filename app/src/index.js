@@ -4,7 +4,7 @@ import './index.scss';
 import App from './App/App';
 import reportWebVitals from './_Other/reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import About from './QuickLinks/About';
+import About from './About/About';
 import BugReport from './Reporting/BugReport';
 import CityReport from './Reporting/CityReport';
 

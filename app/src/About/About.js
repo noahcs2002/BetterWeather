@@ -17,11 +17,9 @@ const About = () => {
                     <h2> About Better Weather </h2>
                     <p> 
                         BetterWeather is a simplistic weather app designed to make finding weather information
-                        easy. When I open weather apps, I am berated by ads, weird UIs, and a bunch of information that
+                        easy. When I open weather apps, I am berated by weird UIs and a bunch of information that
                         I don't need. So I created BetterWeather with the solution to those problems in mind. 
-                        No ads, no weird UIs, and minimal information. Just the hourly trends, weekly trends, and some 
-                        information about where the info comes from, like the weather station, so you know where to go to get
-                        more information.
+                        No weird UIs and just the information you really need: the hourly trends, weekly trends, rain chances, and wind.
                     </p>
                 </div>
                 <div className="attribution">
