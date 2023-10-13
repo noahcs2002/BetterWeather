@@ -27,16 +27,16 @@ const SearchBar = ({ onSearch }) => {
     }
 
     const samples = [
-      'Lexington, KY',
-      'Murray, KY',
-      'Seattle, WA',
-      'Portland',
-      'Mount Carmel',
-      'Evansville',
-      'New York City, NY',
-      'Chicago, IL',
-      'Palm Beach, FL',
-      'Fairbanks'
+      'e.g. Lexington, KY',
+      'e.g. Murray, KY',
+      'e.g. Seattle, WA',
+      'e.g. Portland',
+      'e.g. Mount Carmel',
+      'e.g. Evansville',
+      'e.g. New York City, NY',
+      'e.g. Chicago, IL',
+      'e.g. Palm Beach, FL',
+      'e.g. Fairbanks'
     ]
     const placeholder = samples[Math.floor(Math.random() * 10)];
     
