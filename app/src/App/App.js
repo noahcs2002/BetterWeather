@@ -25,7 +25,62 @@ function App() {
     {lat: 42.3601, long: -71.0589, name: 'Boston, MA'},
     {lat: 33.7490, long: -84.3880, name: 'Atlanta, GA'},
     {lat: 36.1699, long: -115.1398, name: 'Las Vegas, NV'}
-];
+  ];
+
+  const states = {
+    'Alabama': 'AL',
+    'Alaska': 'AK',
+    'Arizona': 'AZ',
+    'Arkansas': 'AR',
+    'California': 'CA',
+    'Colorado': 'CO',
+    'Connecticut': 'CT',
+    'Delaware': 'DE',
+    'Florida': 'FL',
+    'Georgia': 'GA',
+    'Hawaii': 'HI',
+    'Idaho': 'ID',
+    'Illinois': 'IL',
+    'Indiana': 'IN',
+    'Iowa': 'IA',
+    'Kansas': 'KS',
+    'Kentucky': 'KY',
+    'Louisiana': 'LA',
+    'Maine': 'ME',
+    'Maryland': 'MD',
+    'Massachusetts': 'MA',
+    'Michigan': 'MI',
+    'Minnesota': 'MN',
+    'Mississippi': 'MS',
+    'Missouri': 'MO',
+    'Montana': 'MT',
+    'Nebraska': 'NE',
+    'Nevada': 'NV',
+    'New Hampshire': 'NH',
+    'New Jersey': 'NJ',
+    'New Mexico': 'NM',
+    'New York': 'NY',
+    'North Carolina': 'NC',
+    'North Dakota': 'ND',
+    'Ohio': 'OH',
+    'Oklahoma': 'OK',
+    'Oregon': 'OR',
+    'Pennsylvania': 'PA',
+    'Rhode Island': 'RI',
+    'South Carolina': 'SC',
+    'South Dakota': 'SD',
+    'Tennessee': 'TN',
+    'Texas': 'TX',
+    'Utah': 'UT',
+    'Vermont': 'VT',
+    'Virginia': 'VA',
+    'Washington': 'WA',
+    'West Virginia': 'WV',
+    'Wisconsin': 'WI',
+    'Wyoming': 'WY'
+  };
+  
+  
 
   /**
    * 
@@ -157,20 +212,34 @@ function App() {
   }
 
   const handleSearch = async (text) => {
+    setAlertsPresent(false);
     setLoading(true);
     setSearchText(text);
-    setAlertsPresent(false);
 
     try {
-      const [city, state] = text.split(',');
+      var [city, state] = text.split(',');
       const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
       const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
-      const url = state ? (`${PORTAL}${city},${state}&limit=5&appid=${apiKey}`) : (`${PORTAL}${city}&limit=5&appid=${apiKey}`);
+      //state ? (`${PORTAL}${city.trim()},${state.trim()}&limit=5&appid=${apiKey}`) : 
+      const url = (`${PORTAL}${city}&limit=5&appid=${apiKey}`);
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
 
-      const latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
+      var latLongOfResult = null;
+
+      if (state) {
+        state = state.trim();
+        responseJSON.forEach(r => {
+          if (state === states[r.state]) {
+            latLongOfResult = {lat: r.lat, long: r.lon}
+          }
+        })
+      }
+      else {
+        latLongOfResult = {lat: responseJSON[0].lat, long: responseJSON[0].lon}
+      }
+      
       localStorage.setItem('place', JSON.stringify(latLongOfResult));
       setPlace(latLongOfResult);
     }
