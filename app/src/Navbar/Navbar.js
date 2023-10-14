@@ -36,6 +36,7 @@ const Navbar = ({versionNumber}) => {
       
       <ul className="nav-links">
         {location.pathname !== '/' && <li><Link to="/" className='link'> Home </Link></li>}
+        {location.pathname !== '/help' && <li> <Link to='/help' className='link'> Help </Link></li>}
         {location.pathname !== '/about' && <li><Link to="/about" className='link'> About </Link></li>}
         {location.pathname !== '/bug-report' && <li> <Link to='/bug-report' className='link'> Report a bug </Link></li>}
         {location.pathname !== '/city-report' && <li> <Link to='/city-report' className='link'> Report a weird city </Link></li>}
