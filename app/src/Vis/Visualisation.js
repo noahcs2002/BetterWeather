@@ -13,6 +13,7 @@ import Plot from 'react-plotly.js'
 export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title, type}) {
 
     var plotTitle = title;
+    // Add more replacements to this as they become necessary!
     const replacements = [
         {current: 'Nashville-Davidson metropolitan government (balance), TN' , replacement: 'Nashville, TN'},
         {current: 'Lexington-Fayette urban county, KY' , replacement: 'Lexington, KY'},
