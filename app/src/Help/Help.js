@@ -34,6 +34,11 @@ const Help = () => {
             q: 'Why does the site not have data for ____ ?',
             a: 'Our data comes from the National Weather Service. If the data is missing for your city or area, ' +
             ' then we recommend trying to search for a different area, or include a state in the search field.'
+        },
+        {
+            q: 'How can I get in touch?',
+            a: 'If you need to get in contact with us, you can use the Google Forms provided in the Feedback tab, or send us an email' +
+            ' at betterweather.contact@gmail.com. We will try and respond within 48 buisness hours.'
         }
     ]
 
