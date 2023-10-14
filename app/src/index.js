@@ -5,9 +5,8 @@ import App from './App/App';
 import reportWebVitals from './_Other/reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import About from './About/About';
-import BugReport from './Reporting/BugReport';
-import CityReport from './Reporting/CityReport';
 import Help from './Help/Help';
+import Feedback from './Feedback/Feedback';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,9 +15,8 @@ root.render(
       <Routes>
         <Route path="/" element={ <App /> }> </Route>
         <Route path="/about" element={<About/>}> </Route>
-        <Route path='/bug-report' element={<BugReport/>}> </Route>
-        <Route path='/city-report' element={<CityReport/>}> </Route>
         <Route path='/help' element={<Help/>}> </Route>
+        <Route path='/feedback' element={<Feedback/>}> </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
