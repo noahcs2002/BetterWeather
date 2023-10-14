@@ -222,11 +222,9 @@ function App() {
 
   useEffect(() => { 
     const getLocationPermission = async () => {
-      console.log('Starting location acquisition')
       setLoading(true);
       if ("geolocation" in navigator) {
         try {
-          console.time('loc');
           const location = await new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(
               pos => (
@@ -253,8 +251,6 @@ function App() {
       else {
         console.log("no navigation allowed");
       }
-      console.timeEnd('loc');
-
       setLoading(false);
     }
 

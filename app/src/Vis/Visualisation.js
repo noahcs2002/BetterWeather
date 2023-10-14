@@ -12,8 +12,20 @@ import Plot from 'react-plotly.js'
  */
 export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title, type}) {
 
+    var plotTitle = title;
+    const replacements = [
+        {current: 'Nashville-Davidson metropolitan government (balance), TN' , replacement: 'Nashville, TN'},
+        {current: 'Lexington-Fayette urban county, KY' , replacement: 'Lexington, KY'},
+    ]
+
     // Store the trace for the high values
     const graphType = type==='s' ? ('scatter') : ('bar');
+
+    replacements.forEach(entry => {
+        if (plotTitle.includes(entry.current)) {
+            plotTitle = plotTitle.replace(entry.current, entry.replacement);
+        }
+    })
 
     const highValues = {
         x: xData,
@@ -49,7 +61,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
     const yAxisLayout = type==='s' ? ({title: yAxis, range:[0,100]}) : ({title: yAxis});
 
     const layout = {
-        title: title,
+        title: plotTitle,
         xaxis: {title: xAxis},
         yaxis: yAxisLayout
     };
