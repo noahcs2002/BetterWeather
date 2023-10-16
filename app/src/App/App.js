@@ -71,7 +71,7 @@ function App() {
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
-  const versionNumber = 'V1.4.0';
+  const versionNumber = 'V1.4.0.prod';
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
