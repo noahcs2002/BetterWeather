@@ -73,7 +73,11 @@ function App() {
   const loadWeather = async () => {
     try {
       const alertPortal = 'https://api.weather.gov/alerts/active?point=';
-      const userLocation = JSON.parse(localStorage.getItem('place'));
+      var userLocation = JSON.parse(localStorage.getItem('place'));
+      if (!userLocation) {
+        userLocation = randomLocations[Math.floor(Math.random() * 10)];
+        localStorage.setItem('place', JSON.stringify(userLocation));
+      }
       var PORTAL = 'https://api.weather.gov/points';
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
