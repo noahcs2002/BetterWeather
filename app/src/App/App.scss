@@ -22,3 +22,21 @@
   flex: 1;
   overflow: auto ;
 }
+
+@media (max-width: 768px) {
+    .about {
+        font-size: medium; /* Adjust font size for smaller screens */
+    }
+
+    .attribution {
+        font-size: medium; /* Adjust font size for smaller screens */
+    }
+
+    .about-container {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .link {
+        font-size: small; /* Adjust font size for smaller screens */
+    }
+}
