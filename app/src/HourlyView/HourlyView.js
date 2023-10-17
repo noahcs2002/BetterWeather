@@ -4,7 +4,6 @@ import Visualisation from "../Vis/Visualisation";
 
 /**
  * Display the hourly view for the data passed in
- * @param {*} The data to display
  * @returns React Module to display
  * @author Noah Sternberg
  * @since V1.0.0

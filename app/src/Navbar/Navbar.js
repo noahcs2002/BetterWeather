@@ -9,10 +9,8 @@ import { Link, useLocation } from 'react-router-dom';
  * @author Noah Sternberg
  * @since V1.0.0
  */
-const Navbar = ({versionNumber}) => {
+const Navbar = () => {
 
-  // Get website location to tell where we are, then
-  // show home if we aren't home, about if we aren't on about etc.
   const location = useLocation();
   return (
     <nav className="navbar">
@@ -30,8 +28,6 @@ const Navbar = ({versionNumber}) => {
         <div className='logo-title'>
           <p>BetterWeather</p>
         </div>
-        
-        
       </div>
       
       <ul className="nav-links">

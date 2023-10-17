@@ -129,7 +129,6 @@ function App() {
         if (index < 12) {
           
           var dateObject = new Date(p.startTime);
-
           var hours = dateObject.getHours();
           var minutes = dateObject.getMinutes();
           var seconds = dateObject.getSeconds();

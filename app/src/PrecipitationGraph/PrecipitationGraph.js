@@ -3,8 +3,6 @@ import './PrecipitationGraph.scss';
 import Visualisation from "../Vis/Visualisation";
 
 export default function Precipitation({data}) {
-
-
     const xData=data.daily.xData;
     var yLows=[]
     const title='Precipitation Chances';
@@ -18,7 +16,7 @@ export default function Precipitation({data}) {
         else {
             yLows.push(period.probabilityOfPrecipitation.value);
         }
-    })
+    });
 
     return (
         <div className="precip">
