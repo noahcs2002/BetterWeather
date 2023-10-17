@@ -47,8 +47,6 @@ function App() {
     'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV',
     'Wisconsin': 'WI', 'Wyoming': 'WY'
   };
-  
-  
 
   /**
    * 
@@ -71,7 +69,7 @@ function App() {
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
-  const versionNumber = 'V1.3.0';
+  const versionNumber = 'V1.4.0';
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
@@ -148,7 +146,6 @@ function App() {
         }
       });
 
-
       const dataToModel = {
         daily: {
           xData: xDataWeekView,
@@ -188,8 +185,7 @@ function App() {
       var [city, state] = text.split(',');
       const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
       const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
-      //state ? (`${PORTAL}${city.trim()},${state.trim()}&limit=5&appid=${apiKey}`) : 
-      const url = (`${PORTAL}${city}&limit=5&appid=${apiKey}`);
+      const url = `${PORTAL}${city}&limit=5&appid=${apiKey}`;
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
@@ -212,7 +208,7 @@ function App() {
       setPlace(latLongOfResult);
     }
     catch (err) {
-      console.log("error using Geocoding API:", err)
+      console.log("Error using Geocoding API:", err)
     }
 
     await loadWeather(place);
@@ -249,13 +245,12 @@ function App() {
         setLoading(false);
       }
       else {
-        console.log("no navigation allowed");
+        console.log("No navigation allowed");
       }
       setLoading(false);
     }
 
     const start = async () => {
-
       await getLocationPermission();
       await loadWeather();
     }

@@ -21,7 +21,7 @@ const Info = (data) => {
                 {
                     today.probabilityOfPrecipitation.value !== null 
                     ? ( <p>{today.probabilityOfPrecipitation.value}%</p> ) 
-                    : (<p> No information provided by the NWS </p>)
+                    : (<p> 0% </p>)
                 }
                 
             </div>
