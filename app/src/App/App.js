@@ -49,14 +49,10 @@ function App() {
   };
 
   /**
-   * 
    * SET THIS TO TRUE IF THE SITE IS UNDER MAINTENANCE
-   * 
    */
   const underMaintenance = false;
   /**
-   * 
-   * 
    * 
    */
 
@@ -69,7 +65,7 @@ function App() {
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
-  const versionNumber = 'V1.4.0.prod';
+  const versionNumber = 'V1.5.0';
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
@@ -77,7 +73,11 @@ function App() {
   const loadWeather = async () => {
     try {
       const alertPortal = 'https://api.weather.gov/alerts/active?point=';
-      const userLocation = JSON.parse(localStorage.getItem('place'));
+      var userLocation = JSON.parse(localStorage.getItem('place'));
+      if (!userLocation) {
+        userLocation = randomLocations[Math.floor(Math.random() * 10)];
+        localStorage.setItem('place', JSON.stringify(userLocation));
+      }
       var PORTAL = 'https://api.weather.gov/points';
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
@@ -216,41 +216,7 @@ function App() {
   };
 
   useEffect(() => { 
-    const getLocationPermission = async () => {
-      setLoading(true);
-      if ("geolocation" in navigator) {
-        try {
-          const location = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-              pos => (
-                resolve({
-                lat: pos.coords.latitude,
-                long: pos.coords.longitude,
-              })),
-              error => reject(error)
-            );
-          });
-
-          localStorage.setItem('place', JSON.stringify(location));
-          setPlace(location);
-        }
-        catch (error) {
-          const defaultLocation = randomLocations[Math.floor(Math.random() * 10)];
-          localStorage.setItem('place', JSON.stringify(defaultLocation));
-          setPlace({lat:defaultLocation.lat, long:defaultLocation.long});
-          setSearchText(defaultLocation.name);
-          localStorage.setItem('region', defaultLocation.name);
-        }
-        setLoading(false);
-      }
-      else {
-        console.log("No navigation allowed");
-      }
-      setLoading(false);
-    }
-
-    const start = async () => {
-      await getLocationPermission();
+      const start = async () => {
       await loadWeather();
     }
 
