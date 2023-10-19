@@ -78,7 +78,7 @@ function App() {
         userLocation = randomLocations[Math.floor(Math.random() * 10)];
         localStorage.setItem('place', JSON.stringify(userLocation));
       }
-      var PORTAL = 'https://api.weather.gov/points';
+      const PORTAL = 'https://api.weather.gov/points';
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
       const pollData = await pollResponse.json();
@@ -207,7 +207,7 @@ function App() {
       setPlace(latLongOfResult);
     }
     catch (err) {
-      console.log("Error using Geocoding API:", err)
+      console.log("Error using Geocoding API: ", err)
     }
 
     await loadWeather(place);
@@ -217,7 +217,7 @@ function App() {
 
   useEffect(() => { 
       const start = async () => {
-      await loadWeather();
+        await loadWeather();
     }
 
     start();

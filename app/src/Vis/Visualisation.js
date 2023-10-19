@@ -20,13 +20,14 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
     ]
 
     // Store the trace for the high values
+
     const graphType = type==='s' ? ('scatter') : ('bar');
 
     replacements.forEach(entry => {
         if (plotTitle.includes(entry.current)) {
             plotTitle = plotTitle.replace(entry.current, entry.replacement);
         }
-    })
+    });
 
     const highValues = {
         x: xData,
