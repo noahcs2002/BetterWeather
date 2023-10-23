@@ -11,7 +11,6 @@ import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 import Footer from '../Footing/Footer';
 import Maintenance from '../Maintenance/Maintenance';
-import Error from '../Error/Error';
 
 function App() {
 
