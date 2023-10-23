@@ -197,7 +197,7 @@ function App() {
       })
 
       if (!countries.includes("US")) {
-        await handleFailure(oldText);
+        await handleFailure(oldText, text);
         return;
       }
 
@@ -235,12 +235,12 @@ function App() {
     start();
   }, []);
 
-  const handleFailure = async (text) => {
+  const handleFailure = async (text, searchedFor) => {
     setLoading(true);
     // setSearchMade(false);
     setSearchText(text);
     // Show modal, for now this is a JS alert
-    // alert("The location you searched for showed no results in the United States.")
+    alert("The search \"" + searchedFor + "\" showed no results in the United States.")
     setLoading(false);
   }
 
