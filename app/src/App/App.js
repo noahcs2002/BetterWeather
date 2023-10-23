@@ -242,8 +242,7 @@ function App() {
     setLoading(true);
     // setSearchMade(false);
     setSearchText(text);
-    // Show modal
-    // For now, this is a just a JS alert
+    // Show modal, for now this is a JS alert
     // alert("The location you searched for showed no results in the United States.")
     setLoading(false);
   }
