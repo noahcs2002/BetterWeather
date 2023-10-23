@@ -1,6 +1,6 @@
 import React from "react";
-import './Visualisation.scss';
 import Plot from 'react-plotly.js'
+import './Visualisation.scss';
 
 /**
  * Visualisation used for weather data
@@ -11,7 +11,6 @@ import Plot from 'react-plotly.js'
  * @note This uses the Plotly.JS library
  */
 export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title, type}) {
-
     var plotTitle = title;
     // Add more replacements to this as they become necessary!
     const replacements = [
