@@ -1,6 +1,7 @@
+@import '../_Other/standard.scss';
 .App {
   text-align: center;
-  background-color: #042048;
+  background-color: var(--background-color);
 }
 
 .spacer {
