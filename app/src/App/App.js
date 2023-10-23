@@ -189,7 +189,6 @@ function App() {
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
-      console.log(responseJSON);
      
       var countries = [];
 
@@ -201,8 +200,6 @@ function App() {
         await handleFailure(oldText);
         return;
       }
-
-      console.log(countries);
 
       var latLongOfResult = null;
 
