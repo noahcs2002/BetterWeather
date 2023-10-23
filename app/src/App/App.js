@@ -61,11 +61,11 @@ function App() {
   const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
   const [areAlertsPresent, setAlertsPresent] = useState(false);
-
+  const [error, setErrorsPresent] = useState(false);
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
-  const versionNumber = 'V1.5.0';
+  const versionNumber = 'V1.6.0';
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
@@ -176,6 +176,7 @@ function App() {
   }
 
   const handleSearch = async (text) => {
+    const oldText = searchText;
     setAlertsPresent(false);
     setLoading(true);
     setSearchText(text);
@@ -188,6 +189,17 @@ function App() {
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
+     
+      var countries = [];
+
+      responseJSON.forEach(e => {
+        countries.push(e.country);
+      })
+
+      if (!countries.includes("US")) {
+        await handleFailure(oldText, text);
+        return;
+      }
 
       var latLongOfResult = null;
 
@@ -222,6 +234,15 @@ function App() {
 
     start();
   }, []);
+
+  const handleFailure = async (text, searchedFor) => {
+    setLoading(true);
+    // setSearchMade(false);
+    setSearchText(text);
+    // Show modal, for now this is a JS alert
+    alert("The search \"" + searchedFor + "\" showed no results in the United States.")
+    setLoading(false);
+  }
 
   return (
     <div className='App'>
