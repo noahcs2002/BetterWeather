@@ -11,6 +11,7 @@ import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 import Footer from '../Footing/Footer';
 import Maintenance from '../Maintenance/Maintenance';
+import Error from '../Error/Error';
 
 function App() {
 
@@ -61,7 +62,7 @@ function App() {
   const [place, setPlace] = useState({});
   const [hasSearchBeenMade, setSearchMade] = useState(false);
   const [areAlertsPresent, setAlertsPresent] = useState(false);
-
+  const [error, setErrorsPresent] = useState(false);
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
@@ -176,6 +177,7 @@ function App() {
   }
 
   const handleSearch = async (text) => {
+    const oldText = searchText;
     setAlertsPresent(false);
     setLoading(true);
     setSearchText(text);
@@ -188,6 +190,20 @@ function App() {
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
+      console.log(responseJSON);
+     
+      var countries = [];
+
+      responseJSON.forEach(e => {
+        countries.push(e.country);
+      })
+
+      if (!countries.includes("US")) {
+        await handleFailure(oldText);
+        return;
+      }
+
+      console.log(countries);
 
       var latLongOfResult = null;
 
@@ -222,6 +238,16 @@ function App() {
 
     start();
   }, []);
+
+  const handleFailure = async (text) => {
+    setLoading(true);
+    // setSearchMade(false);
+    setSearchText(text);
+    // Show modal
+    // For now, this is a just a JS alert
+    // alert("The location you searched for showed no results in the United States.")
+    setLoading(false);
+  }
 
   return (
     <div className='App'>
