@@ -2,13 +2,6 @@ import React from 'react';
 import './Navbar.scss';
 import logo from '../Resources/logo.png';
 import { Link, useLocation } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import { Routes } from 'react-router-dom';
-import About from '../About/About';
-import Help from '../Help/Help';
-import App from '../App/App';
-import Feedback from '../Feedback/Feedback';
 
 /**
  * Navbar
@@ -18,19 +11,6 @@ import Feedback from '../Feedback/Feedback';
  */
 const Navbar = () => {
 
-  const handleHelpClick = () => {
-    
-  }
-
-  const handleAboutClick = () => {
-
-  }
-
-  const handleFeedbackClick = () => {
-
-  }
-
-  const location = useLocation();
   return (
     
     <nav className="navbar">
@@ -52,10 +32,10 @@ const Navbar = () => {
       </div>
       
       <ul className="nav-links">
-        {location.pathname !== '/' ? (<li><Link to="/" className='link'> Home </Link></li>) : (<></>)}
-        {location.pathname !== '/help' ?  (<li> <Link to='/help' className='link'> Help </Link></li>) : (<></>)}
-        {location.pathname !== '/about' ? (<li><Link to="/about" className='link'> About </Link></li>) : (<></>)}
-        {location.pathname !== '/feedback' ? (<li> <Link to='/feedback' className='link'> Feedback </Link></li>) : (<></>)}
+        {<li><Link to="/" className='link'> Home </Link></li>}
+        {<li> <Link to='/help' className='link'> Help </Link></li>}
+        {<li><Link to="/about" className='link'> About </Link></li>}
+        {<li> <Link to='/feedback' className='link'> Feedback </Link></li>}
       </ul>
     </nav>
   );

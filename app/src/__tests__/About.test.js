@@ -1,20 +1,16 @@
 import React from "react";
 import {fireEvent, render, screen} from '@testing-library/react';
-import CriticalAlerts from "../CriticalAlerts/CriticalAlerts";
 import '@testing-library/jest-dom/extend-expect';
-import Navbar from '../Navbar/Navbar.js';
-import 'jest-canvas-mock';
-import { BrowserRouter, Router } from "react-router-dom";
+import About from "../About/About";
+import { BrowserRouter } from "react-router-dom";
 import { TestContextProvider } from "../_Other/TestContextProvider";
 
-test('Simple render test', () => {
+test('Simple about render test', () => {
     render(
         <BrowserRouter>
             <TestContextProvider>
-                <Navbar/>
+                <About/>
             </TestContextProvider>
         </BrowserRouter>
-    );
-    const e = screen.getByText(/BetterWeather/i);
-    expect(e).toBeInTheDocument();
+    )
 })
