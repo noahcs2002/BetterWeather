@@ -11,10 +11,11 @@ import { Link, useLocation } from 'react-router-dom';
  */
 const Navbar = () => {
 
-  const location = useLocation();
   return (
+    
     <nav className="navbar">
-      <div className="logo">
+      
+    <div className="logo">
         <div className='logo-image'>
           <Link to="/">
             <img 
@@ -31,13 +32,15 @@ const Navbar = () => {
       </div>
       
       <ul className="nav-links">
-        {location.pathname !== '/' && <li><Link to="/" className='link'> Home </Link></li>}
-        {location.pathname !== '/help' && <li> <Link to='/help' className='link'> Help </Link></li>}
-        {location.pathname !== '/about' && <li><Link to="/about" className='link'> About </Link></li>}
-        {location.pathname !== '/feedback' && <li> <Link to='/feedback' className='link'> Feedback </Link></li>}
+        {<li><Link to="/" className='link'> Home </Link></li>}
+        {<li> <Link to='/help' className='link'> Help </Link></li>}
+        {<li><Link to="/about" className='link'> About </Link></li>}
+        {<li> <Link to='/feedback' className='link'> Feedback </Link></li>}
       </ul>
     </nav>
   );
 };
+
+
 
 export default Navbar;

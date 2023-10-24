@@ -24,7 +24,7 @@ const Feedback = () => {
             <Navbar/>
             <div className="about-container">
                 <div className="about">
-                    <h2> Report a bug </h2>
+                    <h2> Report a Bug </h2>
                     <p> 
                         Please click the link below to fill out a Google Form for reporting bugs. If your browser does not support
                         redirecting links, feel free to copy the text and paste it into the browser.

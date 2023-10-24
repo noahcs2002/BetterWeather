@@ -1,0 +1,44 @@
+@import '../_Other/standard.scss';
+.App {
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+.spacer {
+  margin: 1%;
+}
+
+.side-by-side {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  // border: 2px solid red;
+}
+
+.info-holder {
+  flex: 1;
+  max-width: 25%;
+}
+
+.views {
+  flex: 1;
+  overflow: auto ;
+}
+
+@media (max-width: 768px) {
+    .about {
+        font-size: medium; /* Adjust font size for smaller screens */
+    }
+
+    .attribution {
+        font-size: medium; /* Adjust font size for smaller screens */
+    }
+
+    .about-container {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .link {
+        font-size: small; /* Adjust font size for smaller screens */
+    }
+}
