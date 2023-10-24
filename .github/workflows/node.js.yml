@@ -31,7 +31,7 @@ jobs:
     #   run : cd app && npm i --s react-geocode
       
     - name: Run tests
-      run: npm test
+      run: cd app && npm test
 
     - name: Build React app
       env:
