@@ -12,6 +12,13 @@ import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 import Footer from '../Footing/Footer';
 import Maintenance from '../Maintenance/Maintenance';
 
+/**
+ * Home screen for the app
+ * @returns Home component.
+ * @since V1.6.0
+ * @formerly App.js 
+ * @author Noah Sternberg
+ */
 function Home() {
 
   const randomLocations = [
