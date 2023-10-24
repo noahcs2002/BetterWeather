@@ -13,4 +13,18 @@ test('Simple about render test', () => {
             </TestContextProvider>
         </BrowserRouter>
     )
+    const e = screen.getByText(/About Better Weather/i);
+    expect(e).toBeInTheDocument();
+});
+
+test('Attribution test', () => {
+    render(
+        <BrowserRouter>
+            <TestContextProvider>
+                <About/>
+            </TestContextProvider>
+        </BrowserRouter>
+    )
+    const e = screen.getByText(/Attribution/i);
+    expect(e).toBeInTheDocument(); 
 })

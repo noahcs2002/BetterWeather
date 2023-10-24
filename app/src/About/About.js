@@ -14,8 +14,8 @@ const About = () => {
             <Navbar/>
             <div className="about-container">
                 <div className="about">
-                    <h2> About Better Weather </h2>
-                    <p> 
+                    <h2>About Better Weather</h2>
+                    <p>
                         BetterWeather is a simplistic weather app designed to make finding weather information
                         easy. When I open weather apps, I am berated by weird UIs and a bunch of information that
                         I don't need. So I created BetterWeather with the solution to those problems in mind. 
@@ -23,7 +23,7 @@ const About = () => {
                     </p>
                 </div>
                 <div className="attribution">
-                    <h2> Attribution </h2>
+                    <h2>Attribution</h2>
                     <ul>
                         <li> <em> Logo provided by <a target="_blank" className="link" href="https://icons8.com/" rel="noreferrer"> https://icons8.com/ </a></em></li>
                         <li> <em> Weather API provided by <a target="_blank" className="link" href="https://www.weather.gov/documentation/services-web-api" rel="noreferrer"> The National Weather Service </a></em></li>
