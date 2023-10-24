@@ -2,6 +2,11 @@ import React from "react";
 import './Feedback.scss';
 import Navbar from "../Navbar/Navbar";
 
+/**
+ * React component showing feedback
+ * @since V1.3.0
+ * @author Noah Sternberg
+ */
 const Feedback = () => {
 
     const cityFormURL = 'https://forms.gle/42TKjUJhjP9qQrfc7';
@@ -11,6 +16,7 @@ const Feedback = () => {
     const clickBug = () => {
         window.open(bugFormURL);
     }
+
     const clickCity = () => {
         window.open(cityFormURL);
     }

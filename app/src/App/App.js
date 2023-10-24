@@ -7,6 +7,13 @@ import Feedback from '../Feedback/Feedback';
 import { Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 
+/**
+ * The app (with routing) to be displayed
+ * @returns routed Application
+ * @author Noah Sternberg
+ * @since V1.0.0
+ * @edited V1.6.0
+ */
 function App() {
   return (
     <div>

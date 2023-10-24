@@ -2,6 +2,13 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import './help.scss';
 
+
+/**
+ * React component for FAQs and other help
+ * @returns Help component
+ * @since V1.3.0
+ * @author Noah Sternberg
+ */
 const Help = () => {
 
     // Copy, paste, and uncomment this template

@@ -2,6 +2,13 @@ import React from "react";
 import './PrecipitationGraph.scss';
 import Visualisation from "../Vis/Visualisation";
 
+/**
+ * A component for precipitation graph
+ * @param {data} data data needed to render the app 
+ * @returns Precipitation graph
+ * @author Noah Sternberg
+ * @since V1.4.0
+ */
 export default function Precipitation({data}) {
     const xData=data.daily.xData;
     var yLows=[]

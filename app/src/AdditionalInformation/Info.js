@@ -1,6 +1,13 @@
 import React from "react";
 import './info.scss';
 
+/**
+ * Simple react component for additional weather information
+ * @param data 
+ * @returns A react component representing additional information from the forecast 
+ * @author Noah Sternberg
+ * @since V1.1.0 Hot Fix
+ */
 const Info = (data) => {
     const today = data.data.todaysForecast;
     return (
