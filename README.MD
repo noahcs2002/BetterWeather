@@ -20,21 +20,37 @@ The backend of this service is minimal, and I like it that way, since I don't ha
 
 ## Installation and Use
 
-Eventually, if BetterWeather is a product that I intend to keep around, then eventually I will host it. However, as it stands now, the site is only usable via localhost installation. Steps on how to do that are included below.
+### Prerequisites
+1) Install Node.JS and Node Package Manager. For more information, check out [the resources found here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+2) (Optionally) install [Git for the command line](https://git-scm.com/downloads) or [Github Desktop](https://desktop.github.com) to handle installing the application. Alternatively, you can just download the .zip (or appropriate archive format) from the repository.
 
-1) Clone this repository. You can do so using SSH or HTTPs, whichever you prefer.
-2) Using the command line or terminal shell of your choice, `cd` into the directory of the repository you just cloned. The file tree is as follows:
+### How to Install
+1) Clone this repository. You can do so using SSH or HTTPs, whichever you prefer. Alternatively, you can download the binary files as needed, if you don't want to use Git
+2) Using the command line or terminal shell of your choice, `cd` into the directory of the repository you just cloned (or downloaded and decompressed). The file tree is as follows:
 
 ```
 BetterWeather
     | app
         | src
+		| ...
 	| public
+		| ...
 	| node_modules
+		| ...
 	| build
+		| ...
 	| package.JSON
 	| package-lock.JSON
     | README.md (this file)
     | LICENSE.md
     | pull_request_template.md
 ```
+
+Make sure you are in the `BetterWeather/app` directory. 
+
+3) Run the console command `npm i`. This takes the package information found in the `package-lock.json` file and install them to the `node_modules` folder for the application to use
+4) Still in `BetterWeather/app`, run the command `npm start`. This will start the application on the the development server (`localhost:3000`).
+5) Use the App!
+
+## Use Cases
+The use case tree is really simple for an application of this scale. You can choose to search for any city you so choose, or any city and state combo if you need to get more refined. Then you'll see a readout of the hourly projection, the weekly projection, and the precipitation chances, as well as some more information, like humidity, wind speed, and a brief forecast overview. Also, if there are any weather alerts (tornado watch, flash flooding, snow warning etc) that will be displayed at the top of the screen.  
