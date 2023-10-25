@@ -53,4 +53,6 @@ Make sure you are in the `BetterWeather/app` directory.
 5) Use the App!
 
 ## Use Cases
-The use case tree is really simple for an application of this scale. You can choose to search for any city you so choose, or any city and state combo if you need to get more refined. Then you'll see a readout of the hourly projection, the weekly projection, and the precipitation chances, as well as some more information, like humidity, wind speed, and a brief forecast overview. Also, if there are any weather alerts (tornado watch, flash flooding, snow warning etc) that will be displayed at the top of the screen.  
+The use case tree is really simple for an application of this scale. You can choose to search for any city you so choose, or any city and state combo if you need to get more refined. Then you'll see a readout of the hourly projection, the weekly projection, and the precipitation chances, as well as some more information, like humidity, wind speed, and a brief forecast overview. Also, if there are any weather alerts (tornado watch, flash flooding, snow warning etc) that will be displayed at the top of the screen.
+
+If you should run into any issues, feel free to fill out a bug report using the 'feedback' tab and I will fix this bugs as soon as I am made aware of it. Additionally, there are some FAQs included in the FAQ's tab of the app if you want any additional information on some common issues.
