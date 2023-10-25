@@ -17,3 +17,24 @@ of a project, and being *grossly* underexperienced with HTML/CSS, the styling of
 ## Technical Overview: Back End
 The backend of this service is minimal, and I like it that way, since I don't have to find a way to host my RESTful API. I am, as previously stated, using the 
 [National Weather Service's free RESTful API](https://www.weather.gov/documentation/services-web-api), as well as [Open Weather Map's free RESTful API for GeoCoding](https://openweathermap.org/api/geocoding-api). GeoCoding is the process of taking a location and turning it into its latitude and longitude. The NWS's API requires a latitute and longitudinal location to parse weather data, or the specifics of the issuing zone and the coordinates within the issuing zone. Since figuring out the intrinsic value of some unique-to-the-NWS system seemed tedious for no good reason, I implemented the GeoCoding API to turn a city into the latitude and longitude and parse the weather report that way.
+
+## Installation and Use
+
+Eventually, if BetterWeather is a product that I intend to keep around, then eventually I will host it. However, as it stands now, the site is only usable via localhost installation. Steps on how to do that are included below.
+
+1) Clone this repository. You can do so using SSH or HTTPs, whichever you prefer.
+2) Using the command line or terminal shell of your choice, `cd` into the directory of the repository you just cloned. The file tree is as follows:
+
+```
+BetterWeather
+    | app
+        | src
+	| public
+	| node_modules
+	| build
+	| package.JSON
+	| package-lock.JSON
+    | README.md (this file)
+    | LICENSE.md
+    | pull_request_template.md
+```
