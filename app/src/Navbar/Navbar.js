@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navbar.scss';
-import logo from '../Resources/logo.png';
+import logo from '../Resources/cloud.png';
 import { Link, useLocation } from 'react-router-dom';
 
 /**
