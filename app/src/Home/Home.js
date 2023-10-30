@@ -11,6 +11,7 @@ import CriticalAlerts from '../CriticalAlerts/CriticalAlerts';
 import Precipitation from '../PrecipitationGraph/PrecipitationGraph';
 import Footer from '../Footing/Footer';
 import Maintenance from '../Maintenance/Maintenance';
+import Alert from '../Alert/Alert';
 
 /**
  * Home screen for the app
@@ -69,6 +70,7 @@ function Home() {
   const [hasSearchBeenMade, setSearchMade] = useState(false);
   const [areAlertsPresent, setAlertsPresent] = useState(false);
   const [error, setErrorsPresent] = useState(false);
+
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
@@ -208,6 +210,7 @@ function Home() {
       })
 
       if (!countries.includes("US")) {
+        localStorage.setItem('text', text);
         await handleFailure(oldText, text);
         return;
       }
@@ -248,32 +251,32 @@ function Home() {
 
   const handleFailure = async (text, searchedFor) => {
     setLoading(true);
-    // setSearchMade(false);
     setSearchText(text);
-    // Show modal, for now this is a JS alert
-    alert("The search \"" + searchedFor + "\" showed no results in the United States.")
+    setErrorsPresent(true);
     setLoading(false);
   }
 
   return (
     <div className='App'>
-      {underMaintenance ? (<Maintenance/>) : (<><Navbar versionNumber={versionNumber}/>
-        {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
-        {loading ? (<Loading/>) 
-        :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
-          <SearchBar onSearch={handleSearch}/>
-          <div className='side-by-side'>
-              <div className='views'>
-                  <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
-                  <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
-                  <Precipitation data={JSON.parse(localStorage.getItem('data'))}/>
-              </div>
-              <div className='info-holder'>
-                  <Info data={JSON.parse(localStorage.getItem('data'))}/>
-              </div>
-          </div>
-          <Footer versionNumber={versionNumber}/>
-        </>)}</>)}
+      {underMaintenance ? (<Maintenance/>) : (<>
+        <Navbar versionNumber={versionNumber}/>
+        {error ? (<> <div className='background'/> <Alert searchedText={localStorage.getItem('text')} onRetry={setErrorsPresent} /> </>) : (<>
+          {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
+          {loading ? (<Loading/>) 
+          :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
+            <SearchBar onSearch={handleSearch}/>
+            <div className='side-by-side'>
+                <div className='views'>
+                    <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
+                    <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+                    <Precipitation data={JSON.parse(localStorage.getItem('data'))}/>
+                </div>
+                <div className='info-holder'>
+                    <Info data={JSON.parse(localStorage.getItem('data'))}/>
+                </div>
+            </div>
+            <Footer versionNumber={versionNumber}/>
+          </>)}</>)}</>)}
     </div>
   )
 }

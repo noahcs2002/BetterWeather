@@ -59,7 +59,7 @@ const Help = () => {
         <div>
             <Navbar/>
             <div key={'faq'} className="help-container">
-                <h2> FAQs and Helpful Information </h2>
+                <h2 className="help-title"> FAQs and Helpful Information </h2>
                 {faqs.map(faq => (
                     <div key={faq.id} id={faq.id} className="help">
                          <div key={faq.q}className="qa"><p>Q:</p><p>{faq.q} </p></div> 
