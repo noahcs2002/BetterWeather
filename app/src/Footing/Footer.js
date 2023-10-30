@@ -10,7 +10,7 @@ import './Footer.scss';
 const Footer = ({versionNumber}) => {
 
   return (
-    <div className="navbar">
+    <div className="footer">
         <p>{versionNumber}</p>
     </div>
   );

@@ -72,20 +72,20 @@ function Home() {
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
-  const versionNumber = 'V1.7.0';
+  const versionNumber = `V${process.env.REACT_APP_VERSION_NUMBER}`;
   /**
    * Spacing for easy finding on the VSCode MiniMap
    */
 
   const loadWeather = async () => {
     try {
-      const alertPortal = 'https://api.weather.gov/alerts/active?point=';
+      const alertPortal = process.env.REACT_APP_ALERT_PORTAL;
       var userLocation = JSON.parse(localStorage.getItem('place'));
       if (!userLocation) {
         userLocation = randomLocations[Math.floor(Math.random() * 10)];
         localStorage.setItem('place', JSON.stringify(userLocation));
       }
-      const PORTAL = 'https://api.weather.gov/points';
+      const PORTAL = process.env.REACT_APP_LOCATION_PORTAL;
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
       const pollData = await pollResponse.json();
@@ -190,9 +190,10 @@ function Home() {
 
     try {
       var [city, state] = text.split(',');
-      const PORTAL = "http://api.openweathermap.org/geo/1.0/direct?q=";
-      const apiKey = '7cebf8d972aa8649dc95fc84596a9724';
-      const url = `${PORTAL}${city}&limit=5&appid=${apiKey}`;
+      const PORTAL = process.env.REACT_APP_GEOCODING_PORTAL;
+      const specifier = process.env.REACT_APP_GEOCODING_CONSTRUCTED_URL;
+      const url = `${PORTAL}${city}${specifier}`;
+      console.log(url);
 
       const queryResponse = await fetch(url);
       const responseJSON = await queryResponse.json();
@@ -256,7 +257,7 @@ function Home() {
       {underMaintenance ? (<Maintenance/>) : (<><Navbar versionNumber={versionNumber}/>
         {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
         {loading ? (<Loading/>) 
-        :(<>{!hasSearchBeenMade ? (<div className='spacer'></div>):(<> <CurrentLocation searchText={searchText}/> </> )}
+        :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
           <SearchBar onSearch={handleSearch}/>
           <div className='side-by-side'>
               <div className='views'>
