@@ -77,14 +77,17 @@ function Home() {
    * Spacing for easy finding on the VSCode MiniMap
    */
 
-  const loadWeather = async () => {
+  const loadWeather = async (location) => {
     try {
       const alertPortal = process.env.REACT_APP_ALERT_PORTAL;
-      var userLocation = JSON.parse(localStorage.getItem('place'));
-      if (!userLocation) {
-        userLocation = randomLocations[Math.floor(Math.random() * 10)];
-        localStorage.setItem('place', JSON.stringify(userLocation));
+      var userLocation = randomLocations[Math.floor(Math.random() * 10)];
+
+      if(location!==undefined) {
+        userLocation = location;
       }
+
+      localStorage.setItem('place', JSON.stringify(userLocation));
+
       const PORTAL = process.env.REACT_APP_LOCATION_PORTAL;
       var url = `${PORTAL}/${userLocation.lat},${userLocation.long}`;
       const pollResponse = await fetch(url);
@@ -230,7 +233,7 @@ function Home() {
       console.log("Error using Geocoding API: ", err)
     }
 
-    await loadWeather(place);
+    await loadWeather(JSON.parse(localStorage.getItem('place')));
     setSearchMade(true);
     setLoading(false);
   };
