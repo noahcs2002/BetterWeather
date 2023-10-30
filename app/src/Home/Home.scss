@@ -42,3 +42,15 @@
         font-size: small; /* Adjust font size for smaller screens */
     }
 }
+
+.background {
+  color: var(--background-color);
+  height: 100vw;
+  overflow: hidden;
+}
+
+.scroll-locked {
+  text-align: center;
+  background-color: var(--background-color);
+  overflow: hidden;
+}

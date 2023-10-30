@@ -29,7 +29,7 @@ const Feedback = () => {
         <div>
             <Navbar/>
             <div className="about-container">
-                <div className="about">
+                <div className="feedback-container">
                     <h2> Report a Bug </h2>
                     <p> 
                         Please click the link below to fill out a Google Form for reporting bugs. If your browser does not support
@@ -37,7 +37,7 @@ const Feedback = () => {
                     </p>
                     <p className="clickable" onClick={clickBug}> {bugFormURL} </p>
                 </div>
-                <div className="about">
+                <div className="feedback-container">
                     <h2> Report a Strange City </h2>
                     <p> 
                         Please use the link below to access a Google Form for reporting weird city names.
@@ -46,7 +46,7 @@ const Feedback = () => {
                     </p>
                     <p className="clickable" onClick={clickCity}> {cityFormURL} </p>
                 </div>
-                <div className="about">
+                <div className="feedback-container">
                     <h2> Suggest an Improvement </h2>
                     <p> 
                         Feel free to use the following Google Form to suggest improvements, give general feedback, or 
