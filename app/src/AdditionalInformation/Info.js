@@ -10,12 +10,28 @@ import './info.scss';
  */
 const Info = (data) => {
     const today = data.data.todaysForecast;
+    const hourly = data.data.hourly;
+
+    const twelveHourMin = Math.min(...hourly.yLows);
+    const twelveHourMax = Math.max(...hourly.yHighs);
+
     return (
         <div className="info">
             <h2>Today at a glance</h2>
             <div className="extra">
                 <h2>Brief Overview</h2>
                 <p> {today.detailedForecast} </p>
+
+                <div className="highs-and-lows">
+                    <div className="highs-and-lows-container">
+                        <h2> High </h2>
+                        <p> {twelveHourMax} </p>
+                    </div>
+                    <div className="highs-and-lows-container">
+                        <h2> Low </h2>
+                        <p> {twelveHourMin} </p>
+                    </div>
+                </div>
 
                 <h2>Humidity</h2>
                 <p> {today.relativeHumidity.value}%</p>
