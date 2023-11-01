@@ -19,3 +19,6 @@ Some bad names include:
 - Make sure you remove all commented code.
 - If this code is going to be in major release, make sure you add any new files with the @since documentation tag for better clarity.
 - Any code using `useState` should consider using `localStorage` instead for speed.
+
+## If Merging into Prod ...
+Make sure you take note of the `.env`'s version number, and change the environment variable in Netlify to reflect the correct version number. 
