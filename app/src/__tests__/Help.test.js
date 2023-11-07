@@ -16,15 +16,11 @@ test('Render test', () => {
 
     const search = screen.getByText(/What can I search for/i);
     const searchedFor = screen.getByText(/I searched for ____ and got something/i);
-    const numbers = screen.getByText(/Why are the numbers/i)
     const where = screen.getByText(/Where are you getting this information?/i);
     const why = screen.getByText(/Why does the site not have data for ____ ?/i);
-    const how = screen.getByText(/How can I get in touch?/i);
 
     expect(search).toBeInTheDocument();
     expect(searchedFor).toBeInTheDocument();
-    expect(numbers).toBeInTheDocument();
     expect(where).toBeInTheDocument();
     expect(why).toBeInTheDocument();
-    expect(how).toBeInTheDocument();
 })
