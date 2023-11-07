@@ -17,7 +17,7 @@ Some bad names include:
 ## Things you must do with all PRs:
 - Make sure to update the build in the site. This is stored in the navbar and also in the footer (as of BW-V1.2.0 this has not been implemented. If you are developing on BW-V1.3.0 this feature will be implemented).
 - Make sure you remove all commented code.
-- If this code is going to be in major release, make sure you add any new files with the @since documentation tag for better clarity.
+- If this code is going to be in major release, make sure you add any new files with the `since` documentation tag for better clarity.
 - Any code using `useState` should consider using `localStorage` instead for speed.
 
 ## If Merging into Prod ...
