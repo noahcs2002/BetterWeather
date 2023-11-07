@@ -5,6 +5,10 @@ import 'jest-canvas-mock';
 import Info from "../AdditionalInformation/Info";
 
 const mockData = {
+    hourly : {
+        yHighs : [1,2,3,4,5],
+        yLows : [6,7,8,9,0]
+    },
     todaysForecast : {
         detailedForecast : "'foo'",
         relativeHumidity : {
@@ -54,6 +58,10 @@ test('Precipitation test', () => {
 
 test('Precipitation test no value', () => {
     const specificData = {
+        hourly: {
+            yHighs: [1,2,3,4,5],
+            yLows: [6,7,8,9,0]
+        },
         todaysForecast : {
             detailedForecast : "'foo'",
             relativeHumidity : {
