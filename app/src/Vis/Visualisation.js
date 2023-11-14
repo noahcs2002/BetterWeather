@@ -9,6 +9,7 @@ import './Visualisation.scss';
  * @author Noah Sternberg
  * @since V1.0.0
  * @note This uses the Plotly.JS library
+ * @updated V1.9.3
  */
 export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title, type}) {
     var plotTitle = title;
@@ -20,7 +21,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
 
     // Store the trace for the high values
 
-    const graphType = type==='s' ? ('scatter') : ('bar');
+    const graphType = 'bar';
 
     replacements.forEach(entry => {
         if (plotTitle.includes(entry.current)) {
