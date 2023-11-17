@@ -81,6 +81,11 @@ function Home() {
 
   const loadWeather = async (location) => {
     try {
+
+      await new Promise(r => {
+        setTimeout(r, 2000);
+      })
+
       const alertPortal = process.env.REACT_APP_ALERT_PORTAL;
       var userLocation = randomLocations[Math.floor(Math.random() * 10)];
 
