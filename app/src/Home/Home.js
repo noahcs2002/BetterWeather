@@ -262,26 +262,29 @@ function Home() {
   }
 
   return (
+    // This is a JavaScript Monster. I know that. You know that. We all know that. But it works and I'm too scared to touch it ... 
     <div className='App'>
       {underMaintenance ? (<Maintenance/>) : (<>
-        <Navbar versionNumber={versionNumber}/>
-        {error ? (<> <div className='background'/> <Alert searchedText={localStorage.getItem('text')} onRetry={setErrorsPresent} /> </>) : (<>
-          {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
-          {loading ? (<Loading/>) 
-          :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
-            <SearchBar onSearch={handleSearch}/>
-            <div className='side-by-side'>
-                <div className='views'>
-                    <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
-                    <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
-                    <Precipitation data={JSON.parse(localStorage.getItem('data'))}/>
-                </div>
-                <div className='info-holder'>
-                    <Info data={JSON.parse(localStorage.getItem('data'))}/>
-                </div>
-            </div>
-            <Footer versionNumber={versionNumber}/>
-          </>)}</>)}</>)}
+          <Navbar versionNumber={versionNumber}/>
+          {error ? (<> <div className='background'/> <Alert searchedText={localStorage.getItem('text')} onRetry={setErrorsPresent} /> </>) : (<>
+            {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
+            {loading ? (<Loading/>) 
+            :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
+              <SearchBar onSearch={handleSearch}/>
+              <div className='side-by-side'>
+                  <div className='views'>
+                      <HourlyView data={JSON.parse(localStorage.getItem('data'))}/>
+                      <DailyView data={JSON.parse(localStorage.getItem('data'))}/>
+                      <Precipitation data={JSON.parse(localStorage.getItem('data'))}/>
+                  </div>
+                  <div className='info-holder'>
+                      <Info data={JSON.parse(localStorage.getItem('data'))}/>
+                  </div>
+              </div>
+              <Footer versionNumber={versionNumber}/>
+
+            </>)}</>)}</>)
+        }
     </div>
   )
 }
