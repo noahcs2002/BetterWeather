@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Alert.scss';
 
-const Alert = ({ searchedText, onRetry }) => {
+const Alert = ({ searchedText, onDismiss }) => {
 
   const handleClick = () => {
-    onRetry(false);
+    onDismiss(false);
   }
 
   return ReactDOM.createPortal(
