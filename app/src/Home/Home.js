@@ -83,7 +83,7 @@ function Home() {
     try {
 
       await new Promise(r => {
-        setTimeout(r, 2000);
+        setTimeout(r, 500);
       })
 
       const alertPortal = process.env.REACT_APP_ALERT_PORTAL;
