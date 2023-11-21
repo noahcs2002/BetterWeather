@@ -35,7 +35,7 @@ function Home() {
     {lat: 36.1699, long: -115.1398, name: 'Las Vegas, NV'}
   ];
 
-  // States and thier abbreviations for data parsing later.
+  // States and their abbreviations for data parsing later.
   const states = {
     'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ',
     'Arkansas': 'AR', 'California': 'CA', 'Colorado': 'CO',
@@ -71,17 +71,11 @@ function Home() {
   const [areAlertsPresent, setAlertsPresent] = useState(false);
   const [error, setErrorsPresent] = useState(false);
 
-  /**
-   * Spacing for easy finding on the VSCode MiniMap
-   */
   const versionNumber = `V${process.env.REACT_APP_VERSION_NUMBER}`;
-  /**
-   * Spacing for easy finding on the VSCode MiniMap
-   */
 
   const loadWeather = async (location) => {
     try {
-
+      // Cool-down period to allow API's to not be over-called. 
       await new Promise(r => {
         setTimeout(r, 500);
       })
@@ -262,7 +256,8 @@ function Home() {
   }
 
   return (
-    // This is a JavaScript Monster. I know that. You know that. We all know that. But it works and I'm too scared to touch it ... 
+    // This is an abomination. I know that. You know that. We all know that. 
+    // But it works and I'm too scared to touch it ... 
     <div className='App'>
       {underMaintenance ? (<Maintenance/>) : (<>
           <Navbar versionNumber={versionNumber}/>
@@ -282,7 +277,6 @@ function Home() {
                   </div>
               </div>
               <Footer versionNumber={versionNumber}/>
-
             </>)}</>)}</>)
         }
     </div>
