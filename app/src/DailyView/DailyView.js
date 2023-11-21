@@ -12,12 +12,12 @@ import Visualisation from "../Vis/Visualisation";
 export default function DailyView({data}) {
     
     // Take data from the 'daily' part of the data it's passed.
-    const xData=data.daily.xData
-    const yHighs=data.daily.yHighs;
-    const yLows=data.daily.yLows;
-    const title=data.daily.title;
-    const xAxis=data.daily.xAxis;
-    const yAxis=data.daily.yAxis;
+    const xData = data.daily.xData
+    const yHighs = data.daily.yHighs;
+    const yLows = data.daily.yLows;
+    const title = data.daily.title;
+    const xAxis = data.daily.xAxis;
+    const yAxis = data.daily.yAxis;
 
     return (
         <div className="daily">

@@ -41,9 +41,9 @@ const Info = (data) => {
 
                 <h2>Precipitation</h2>
                 {
-                    today.probabilityOfPrecipitation.value !== null 
-                    ? ( <p>{today.probabilityOfPrecipitation.value}%</p> ) 
-                    : (<p> 0% </p>)
+                    today.probabilityOfPrecipitation.value !== null ? 
+                        ( <p>{today.probabilityOfPrecipitation.value}%</p> ) : 
+                        (<p> 0% </p>)
                 }
             </div>
         </div>
