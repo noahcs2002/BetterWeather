@@ -19,10 +19,6 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
         {current: 'Lexington-Fayette urban county, KY' , replacement: 'Lexington, KY'},
     ]
 
-    // Store the trace for the high values
-
-    const graphType = 'bar';
-
     replacements.forEach(entry => {
         if (plotTitle.includes(entry.current)) {
             plotTitle = plotTitle.replace(entry.current, entry.replacement);
@@ -33,7 +29,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
         x: xData,
         y: yHighs,
         mode:'lines',
-        type: graphType,
+        type: 'bar',
         marker: {color:'708090', size:8},
         name: 'High',
         text: yHighs.map(v => `${v}`),
@@ -50,7 +46,7 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
             x: xData,
             y: yLows,
             mode:'lines',
-            type:graphType,
+            type:'bar',
             marker: {color:'0f7096', size:8},
             name: 'Low',
             text: yLows.map(v => `${v}`),
@@ -72,5 +68,5 @@ export default function Visualisation({xData, yHighs, yLows, xAxis, yAxis, title
         <div className="visualisation">
             <Plot data={data} layout={layout} style={{width: '100%', height:'400px'}} config= {{displayModeBar: false, staticPlot:true}}/>
         </div>
-    )
+    )  
 }
