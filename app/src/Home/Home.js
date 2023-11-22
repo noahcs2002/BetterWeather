@@ -56,14 +56,6 @@ function Home() {
     'Wisconsin': 'WI', 'Wyoming': 'WY'
   };
 
-  /**
-   * SET THIS TO TRUE IF THE SITE IS UNDER MAINTENANCE
-   */
-  const underMaintenance = false;
-  /**
-   * 
-   */
-
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [place, setPlace] = useState({});
@@ -256,13 +248,28 @@ function Home() {
   }
 
   return (
-    <div className='App'>
-      {underMaintenance ? (<Maintenance/>) : (<>
-          <Navbar versionNumber={versionNumber}/>
-          {error ? (<> <div className='background'/> <Alert searchedText={localStorage.getItem('text')} onDismiss={setErrorsPresent} /> </>) : (<>
-            {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
-            {loading ? (<Loading/>) 
-            :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
+    <div className='App'> {
+      <div>
+        <Navbar versionNumber={versionNumber}/> {
+          error? 
+          <div> 
+            <div className='background'/> 
+              <Alert searchedText={localStorage.getItem('text')} onDismiss={setErrorsPresent}/> 
+            </div>: 
+            <div> {
+                areAlertsPresent? 
+                <CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}/>: 
+                <div> </div>
+            }
+            {
+              loading ? <Loading/> :
+              <div> {
+                !hasSearchBeenMade? 
+                <div> </div>:
+                <div> 
+                  <CurrentLocation searchText={searchText}/> 
+                </div> 
+              }
               <SearchBar onSearch={handleSearch}/>
               <div className='side-by-side'>
                   <div className='views'>
@@ -274,9 +281,10 @@ function Home() {
                       <Info data={JSON.parse(localStorage.getItem('data'))}/>
                   </div>
               </div>
-              <Footer versionNumber={versionNumber}/>
-            </>)}</>)}</>)
-        }
+            <Footer versionNumber={versionNumber}/>
+          </div>}
+        </div>}
+      </div>}
     </div>
   )
 }
