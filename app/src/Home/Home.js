@@ -261,7 +261,7 @@ function Home() {
     <div className='App'>
       {underMaintenance ? (<Maintenance/>) : (<>
           <Navbar versionNumber={versionNumber}/>
-          {error ? (<> <div className='background'/> <Alert searchedText={localStorage.getItem('text')} onRetry={setErrorsPresent} /> </>) : (<>
+          {error ? (<> <div className='background'/> <Alert searchedText={localStorage.getItem('text')} onDismiss={setErrorsPresent} /> </>) : (<>
             {areAlertsPresent ? (<CriticalAlerts alerts={JSON.parse(localStorage.getItem('alerts'))} setStateFunction={setAlertsPresent}  />) : (<></>)}
             {loading ? (<Loading/>) 
             :(<>{!hasSearchBeenMade ? (<></>):(<> <CurrentLocation searchText={searchText}/> </> )}
