@@ -256,8 +256,6 @@ function Home() {
   }
 
   return (
-    // This is an abomination. I know that. You know that. We all know that. 
-    // But it works and I'm too scared to touch it ... 
     <div className='App'>
       {underMaintenance ? (<Maintenance/>) : (<>
           <Navbar versionNumber={versionNumber}/>
