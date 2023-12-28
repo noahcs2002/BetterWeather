@@ -2,9 +2,6 @@
 - CSC425: Web Based Services and Applications Term Project
 - Noah Sternberg
 
-## To Dr. Owen
-Dr. Owen, if you're reading this, this has info on everything you'll need to grade my project. There's a folder called `submission-components` that has my poster, as well as my final retrospective in it. It also has my user manual in it. Otherwise, the code is in the app folder.
-
 ## Overview
 BetterWeather is a web application designed to view the weather. For the MVP, the app will have the ability to view the weather from any searched 
 location, as well as implementing the ability to view from the location pulled from the geolocation in the browser. There will be a 'by the hour' view as well
